@@ -678,9 +678,13 @@
 
         async function loadPlaylist() {
             try {
-                const response = await fetch('./playlist.json');
-                if (!response.ok) throw new Error('Failed to load');
+                const response = await fetch('./playlist.json?v=' + new Date().getTime());
+                if (!response.ok) {
+                    console.error('Response status:', response.status);
+                    throw new Error('Failed to load playlist');
+                }
                 const data = await response.json();
+                console.log('Playlist loaded:', data);
                 allPlaylist = data;
                 filteredPlaylist = [...allPlaylist];
                 displayRecentlyPlayed();
@@ -688,6 +692,7 @@
                 updateTrendingSongs();
             } catch (error) {
                 console.error('Error loading playlist.json:', error);
+                alert('Error: Could not load playlist.json. Make sure it exists in the same folder as index.html');
             }
         }
 
@@ -718,15 +723,14 @@
         function searchMusic() {
             const searchTerm = searchInput.value.toLowerCase().trim();
             const baseList = currentFilter === 'all' ? allPlaylist : 
-                allPlaylist.filter(s => s.singer && s.singer.toLowerCase() === currentFilter.toLowerCase());
+                allPlaylist.filter(s => s.name.toLowerCase().includes(currentFilter.toLowerCase()));
             
             if (searchTerm === '') {
                 filteredPlaylist = [...baseList];
             } else {
                 filteredPlaylist = baseList.filter(song => 
                     song.name.toLowerCase().includes(searchTerm) ||
-                    (song.description && song.description.toLowerCase().includes(searchTerm)) ||
-                    (song.singer && song.singer.toLowerCase().includes(searchTerm))
+                    (song.description && song.description.toLowerCase().includes(searchTerm))
                 );
             }
             displayRecentlyPlayed();
@@ -866,9 +870,13 @@
         }
 
         function loadSingers() {
-            fetch('./singers.json')
-                .then(response => response.json())
+            fetch('./singers.json?v=' + new Date().getTime())
+                .then(response => {
+                    if (!response.ok) throw new Error('Failed to load singers');
+                    return response.json();
+                })
                 .then(data => {
+                    console.log('Singers loaded:', data);
                     const singerList = document.getElementById('singerList');
                     singerList.innerHTML = '<div class="singer-item active" data-singer="all" onclick="filterBySinger(\'all\')">All Songs</div>';
                     data.forEach(singer => {
@@ -881,14 +889,7 @@
                     });
                 })
                 .catch(error => {
-                    console.error('Error loading singers:', error);
-                    const singerList = document.getElementById('singerList');
-                    singerList.innerHTML = `
-                        <div class="singer-item active" data-singer="all" onclick="filterBySinger('all')">All Songs</div>
-                        <div class="singer-item" data-singer="anaz" onclick="filterBySinger('anaz')">Anaz</div>
-                        <div class="singer-item" data-singer="riya" onclick="filterBySinger('riya')">Riya</div>
-                        <div class="singer-item" data-singer="ragesh" onclick="filterBySinger('ragesh')">Ragesh</div>
-                    `;
+                    console.error('Error loading singers.json:', error);
                 });
         }
     </script>
