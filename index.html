@@ -38,17 +38,18 @@
         }
 
         .logo {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             background: linear-gradient(135deg, #00d4ff, #0099ff);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
-            font-size: 20px;
+            font-weight: 600;
+            font-size: 11px;
             margin-bottom: 40px;
             cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 212, 255, 0.4);
         }
 
         .nav-icon {
@@ -85,11 +86,73 @@
             fill: #fff;
         }
 
+        /* Singer Popup */
+        .singer-popup {
+            position: fixed;
+            left: 80px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(135deg, #1e2a47, #16213e);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
+            z-index: 200;
+            display: none;
+            min-width: 200px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .singer-popup.active {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50%) translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(-50%) translateX(0);
+            }
+        }
+
+        .singer-popup h3 {
+            color: #00d4ff;
+            margin-bottom: 15px;
+            font-size: 16px;
+            text-align: center;
+        }
+
+        .singer-item {
+            padding: 12px 15px;
+            background: rgba(0, 212, 255, 0.1);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            border: 1px solid transparent;
+        }
+
+        .singer-item:hover {
+            background: rgba(0, 212, 255, 0.2);
+            border-color: #00d4ff;
+            transform: translateX(5px);
+        }
+
+        .singer-item.active {
+            background: rgba(0, 212, 255, 0.3);
+            border-color: #00d4ff;
+        }
+
         /* Main Content */
         .main-content {
             margin-left: 64px;
             flex: 1;
             padding: 20px 40px;
+            padding-bottom: 100px;
             position: relative;
         }
 
@@ -104,6 +167,7 @@
         .search-container {
             display: flex;
             align-items: center;
+            flex: 1;
         }
 
         .search-box {
@@ -113,13 +177,14 @@
             border-radius: 25px;
             overflow: hidden;
             margin-right: 20px;
+            max-width: 400px;
         }
 
         .search-box input {
             border: none;
             outline: none;
             padding: 10px 20px;
-            width: 250px;
+            width: 300px;
             font-family: 'Poppins', sans-serif;
         }
 
@@ -131,6 +196,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .search-box button:hover {
+            background: #0099ff;
         }
 
         .trending-text {
@@ -141,53 +211,6 @@
         .trending-text span {
             color: #fff;
             font-weight: 500;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .lang-btn {
-            background: transparent;
-            border: 1px solid #444;
-            color: #fff;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            transition: all 0.3s ease;
-        }
-
-        .lang-btn:hover {
-            border-color: #00d4ff;
-            color: #00d4ff;
-        }
-
-        .register-btn, .login-btn {
-            padding: 10px 25px;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-family: 'Poppins', sans-serif;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .register-btn {
-            background: #00d4ff;
-            color: #fff;
-        }
-
-        .login-btn {
-            background: #00a8cc;
-            color: #fff;
-        }
-
-        .register-btn:hover, .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 20px rgba(0, 212, 255, 0.4);
         }
 
         /* Hero Section */
@@ -209,7 +232,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: radial-gradient(circle at 30% 50%, rgba(0, 212, 255, 0.1) 0%, transparent 60%);
+            background: radial-gradient(circle at 30% 50%, rgba(0, 212, 255, 0.15) 0%, transparent 60%);
             pointer-events: none;
         }
 
@@ -256,7 +279,7 @@
             gap: 15px;
         }
 
-        .btn-primary, .btn-secondary {
+        .btn-primary {
             padding: 12px 30px;
             border: none;
             border-radius: 25px;
@@ -264,20 +287,11 @@
             font-family: 'Poppins', sans-serif;
             font-weight: 500;
             transition: all 0.3s ease;
-        }
-
-        .btn-primary {
             background: #00d4ff;
             color: #fff;
         }
 
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid #00d4ff;
-            color: #00d4ff;
-        }
-
-        .btn-primary:hover, .btn-secondary:hover {
+        .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
         }
@@ -460,38 +474,6 @@
             z-index: 9999;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .main-content {
-                padding: 15px;
-            }
-
-            .hero-section {
-                flex-direction: column;
-                padding: 20px;
-            }
-
-            .hero-image {
-                margin-right: 0;
-                margin-bottom: 20px;
-                flex: 0 0 auto;
-            }
-
-            .hero-content h1 {
-                font-size: 32px;
-            }
-
-            .recently-played {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-        }
-
         /* Audio Player */
         .audio-player {
             position: fixed;
@@ -505,6 +487,7 @@
             gap: 20px;
             z-index: 1000;
             box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.5);
+            border-top: 1px solid rgba(0, 212, 255, 0.2);
         }
 
         .audio-player.active {
@@ -515,7 +498,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            min-width: 200px;
+            min-width: 250px;
         }
 
         .player-thumbnail {
@@ -560,6 +543,7 @@
 
         .progress-bar {
             width: 100%;
+            max-width: 600px;
             height: 5px;
             background: #333;
             border-radius: 5px;
@@ -573,6 +557,89 @@
             width: 0%;
             transition: width 0.1s linear;
         }
+
+        .powered-by {
+            font-size: 12px;
+            color: #666;
+            padding-right: 20px;
+        }
+
+        .powered-by a {
+            color: #00d4ff;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .powered-by a:hover {
+            text-decoration: underline;
+        }
+
+        /* No Results */
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .no-results h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 15px;
+                margin-left: 64px;
+            }
+
+            .hero-section {
+                flex-direction: column;
+                padding: 20px;
+            }
+
+            .hero-image {
+                margin-right: 0;
+                margin-bottom: 20px;
+                flex: 0 0 auto;
+                width: 100%;
+            }
+
+            .hero-image img {
+                height: 300px;
+            }
+
+            .hero-content h1 {
+                font-size: 32px;
+            }
+
+            .recently-played {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .search-box {
+                max-width: 100%;
+            }
+
+            .search-box input {
+                width: 200px;
+            }
+
+            .audio-player {
+                left: 0;
+                padding: 10px 15px;
+            }
+
+            .player-song-info {
+                min-width: auto;
+            }
+        }
     </style>
 </head>
 <body>
@@ -581,31 +648,28 @@
     <div class="container">
         <!-- Sidebar -->
         <div class="sidebar">
-            <div class="logo">M</div>
+            <div class="logo">Aval</div>
             
-            <div class="nav-icon active">
+            <div class="nav-icon active" id="homeIcon">
                 <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
             </div>
             
-            <div class="nav-icon">
-                <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <div class="nav-icon" id="contactIcon">
+                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
             </div>
             
-            <div class="nav-icon">
+            <div class="nav-icon" id="micIcon">
                 <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
             </div>
-            
-            <div class="nav-icon">
-                <svg viewBox="0 0 24 24"><path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z"/></svg>
-            </div>
-            
-            <div class="nav-icon">
-                <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            </div>
-            
-            <div class="nav-icon">
-                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
-            </div>
+        </div>
+
+        <!-- Singer Popup -->
+        <div class="singer-popup" id="singerPopup">
+            <h3>Select Singer</h3>
+            <div class="singer-item" data-singer="all">All Songs</div>
+            <div class="singer-item" data-singer="anaz">Anaz</div>
+            <div class="singer-item" data-singer="riya">Riya</div>
+            <div class="singer-item" data-singer="ragesh">Ragesh</div>
         </div>
 
         <!-- Main Content -->
@@ -614,22 +678,16 @@
             <div class="header">
                 <div class="search-container">
                     <div class="search-box">
-                        <input type="text" placeholder="Search Music Here...">
-                        <button>
+                        <input type="text" id="searchInput" placeholder="Search Music Here...">
+                        <button onclick="searchMusic()">
                             <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff">
                                 <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
                             </svg>
                         </button>
                     </div>
                     <div class="trending-text">
-                        Trending Songs : <span id="trendingSongs">Dream your moments, Until I Met You, ...</span>
+                        Trending Songs : <span id="trendingSongs">Loading...</span>
                     </div>
-                </div>
-                
-                <div class="header-actions">
-                    <button class="lang-btn">Languages 🌐</button>
-                    <button class="register-btn">Register</button>
-                    <button class="login-btn">Login</button>
                 </div>
             </div>
 
@@ -646,8 +704,7 @@
                         Things, The Heartbeat Stops, Walking Promises, Desired Games and many more...
                     </p>
                     <div class="hero-buttons">
-                        <button class="btn-primary" onclick="playFirstSong()">Listen Now</button>
-                        <button class="btn-secondary">Add To Queue</button>
+                        <button class="btn-primary" onclick="playRandomSong()">Listen Now</button>
                     </div>
                 </div>
             </div>
@@ -655,12 +712,12 @@
             <!-- Recently Played -->
             <div class="section-header">
                 <h2>Recently Played</h2>
-                <span class="view-more">View More</span>
+                <span class="view-more" onclick="scrollToWeekly()">View More</span>
             </div>
             <div class="recently-played" id="recentlyPlayed"></div>
 
             <!-- Weekly Top 15 -->
-            <div class="weekly-top">
+            <div class="weekly-top" id="weeklySection">
                 <h2>Weekly Top 15</h2>
                 <div id="weeklyTop"></div>
             </div>
@@ -674,7 +731,7 @@
                 <img id="currentSongImg" src="" alt="">
             </div>
             <div>
-                <div id="currentSongName" style="font-weight: 600; margin-bottom: 5px;">Song Name</div>
+                <div id="currentSongName" style="font-weight: 600; margin-bottom: 5px; font-size: 14px;">Song Name</div>
                 <div id="currentSongArtist" style="font-size: 12px; color: #aaa;">Artist</div>
             </div>
         </div>
@@ -689,64 +746,122 @@
             </div>
         </div>
         <div class="song-duration" id="duration">0:00 / 0:00</div>
+        <div class="powered-by">
+            Powered by <a href="#" target="_blank">miniBotix</a>
+        </div>
     </div>
 
     <audio id="audioElement"></audio>
 
     <script>
-        let playlist = [];
+        let allPlaylist = [];
+        let filteredPlaylist = [];
         let currentSongIndex = 0;
+        let currentFilter = 'all';
         const audio = document.getElementById('audioElement');
         const playPauseBtn = document.getElementById('playPauseBtn');
         const progress = document.getElementById('progress');
         const glowEffect = document.getElementById('glowEffect');
+        const searchInput = document.getElementById('searchInput');
 
         // Load playlist
         async function loadPlaylist() {
             try {
                 const response = await fetch('playlist.json');
-                playlist = await response.json();
+                allPlaylist = await response.json();
+                filteredPlaylist = [...allPlaylist];
                 displayRecentlyPlayed();
                 displayWeeklyTop();
                 updateTrendingSongs();
             } catch (error) {
                 console.error('Error loading playlist:', error);
-                // Fallback data if playlist.json is not found
-                playlist = [
+                allPlaylist = [
                     {
                         id: "1",
                         name: "First Melody",
+                        singer: "anaz",
                         file: "songs/1.mp3",
                         img: "img/1.jpg",
-                        description: "Riya soulful cover"
+                        description: "Anaz soulful cover"
                     },
                     {
                         id: "2",
                         name: "Evening Vibe",
+                        singer: "riya",
                         file: "songs/2.mp3",
                         img: "img/2.jpg",
-                        description: "Soft recording"
+                        description: "Riya soft recording"
                     }
                 ];
+                filteredPlaylist = [...allPlaylist];
                 displayRecentlyPlayed();
                 displayWeeklyTop();
                 updateTrendingSongs();
             }
         }
 
+        function filterBySinger(singer) {
+            if (singer === 'all') {
+                filteredPlaylist = [...allPlaylist];
+            } else {
+                filteredPlaylist = allPlaylist.filter(song => 
+                    song.singer && song.singer.toLowerCase() === singer.toLowerCase()
+                );
+            }
+            currentFilter = singer;
+            displayRecentlyPlayed();
+            displayWeeklyTop();
+        }
+
+        function searchMusic() {
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            if (searchTerm === '') {
+                filteredPlaylist = currentFilter === 'all' ? [...allPlaylist] : 
+                    allPlaylist.filter(s => s.singer && s.singer.toLowerCase() === currentFilter.toLowerCase());
+            } else {
+                const baseList = currentFilter === 'all' ? allPlaylist : 
+                    allPlaylist.filter(s => s.singer && s.singer.toLowerCase() === currentFilter.toLowerCase());
+                
+                filteredPlaylist = baseList.filter(song => 
+                    song.name.toLowerCase().includes(searchTerm) ||
+                    (song.description && song.description.toLowerCase().includes(searchTerm)) ||
+                    (song.singer && song.singer.toLowerCase().includes(searchTerm))
+                );
+            }
+            
+            displayRecentlyPlayed();
+            displayWeeklyTop();
+        }
+
+        searchInput.addEventListener('keyup', (e) => {
+            if (e.key === 'Enter') {
+                searchMusic();
+            } else {
+                searchMusic();
+            }
+        });
+
         function displayRecentlyPlayed() {
             const container = document.getElementById('recentlyPlayed');
             container.innerHTML = '';
             
-            playlist.slice(0, 4).forEach((song, index) => {
+            const displaySongs = filteredPlaylist.slice(0, 4);
+            
+            if (displaySongs.length === 0) {
+                container.innerHTML = '<div class="no-results"><h3>No songs found</h3><p>Try a different search or singer</p></div>';
+                return;
+            }
+            
+            displaySongs.forEach((song, index) => {
                 const card = document.createElement('div');
                 card.className = 'music-card';
-                card.onclick = () => playSong(index);
+                card.onclick = () => playSong(filteredPlaylist.indexOf(song));
                 card.innerHTML = `
                     <img src="${song.img}" alt="${song.name}" onerror="this.src='https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=400&fit=crop'">
                     <div class="music-info">
                         <h3>${song.name}</h3>
-                        <p>${song.description}</p>
+                        <p>${song.description || (song.singer ? song.singer + ' cover' : 'Musical track')}</p>
                     </div>
                 `;
                 container.appendChild(card);
@@ -757,7 +872,12 @@
             const container = document.getElementById('weeklyTop');
             container.innerHTML = '';
             
-            playlist.forEach((song, index) => {
+            if (filteredPlaylist.length === 0) {
+                container.innerHTML = '<div class="no-results"><h3>No songs found</h3><p>Try a different search or singer</p></div>';
+                return;
+            }
+            
+            filteredPlaylist.forEach((song, index) => {
                 const item = document.createElement('div');
                 item.className = 'top-song-item';
                 item.onclick = () => playSong(index);
@@ -768,7 +888,7 @@
                     </div>
                     <div class="song-details">
                         <h4>${song.name}</h4>
-                        <p>${song.description}</p>
+                        <p>${song.description || (song.singer ? song.singer + ' cover' : 'Musical track')}</p>
                     </div>
                     <div class="song-duration">5:10</div>
                     <div class="song-menu">
@@ -783,68 +903,14 @@
 
         function updateTrendingSongs() {
             const trendingElement = document.getElementById('trendingSongs');
-            const songNames = playlist.map(s => s.name).slice(0, 3).join(', ');
-            trendingElement.textContent = songNames + ', ...';
+            const songNames = allPlaylist.map(s => s.name).slice(0, 3).join(', ');
+            trendingElement.textContent = songNames + (allPlaylist.length > 3 ? ', ...' : '');
         }
 
         function playSong(index) {
+            if (filteredPlaylist.length === 0) return;
+            
             currentSongIndex = index;
-            const song = playlist[index];
+            const song = filteredPlaylist[index];
             
-            audio.src = song.file;
-            audio.play();
-            
-            document.getElementById('currentSongImg').src = song.img;
-            document.getElementById('currentSongName').textContent = song.name;
-            document.getElementById('currentSongArtist').textContent = song.description;
-            document.getElementById('audioPlayer').classList.add('active');
-            playPauseBtn.textContent = '⏸️';
-        }
-
-        function playFirstSong() {
-            if (playlist.length > 0) {
-                playSong(0);
-            }
-        }
-
-        function togglePlay() {
-            if (audio.paused) {
-                audio.play();
-                playPauseBtn.textContent = '⏸️';
-            } else {
-                audio.pause();
-                playPauseBtn.textContent = '▶️';
-            }
-        }
-
-        function nextSong() {
-            currentSongIndex = (currentSongIndex + 1) % playlist.length;
-            playSong(currentSongIndex);
-        }
-
-        function previousSong() {
-            currentSongIndex = (currentSongIndex - 1 + playlist.length) % playlist.length;
-            playSong(currentSongIndex);
-        }
-
-        function seek(event) {
-            const progressBar = event.currentTarget;
-            const clickPosition = event.offsetX;
-            const barWidth = progressBar.offsetWidth;
-            const seekTime = (clickPosition / barWidth) * audio.duration;
-            audio.currentTime = seekTime;
-        }
-
-        // Update progress bar
-        audio.addEventListener('timeupdate', () => {
-            if (audio.duration) {
-                const progressPercent = (audio.currentTime / audio.duration) * 100;
-                progress.style.width = progressPercent + '%';
-                
-                const currentMin = Math.floor(audio.currentTime / 60);
-                const currentSec = Math.floor(audio.currentTime % 60);
-                const durationMin = Math.floor(audio.duration / 60);
-                const durationSec = Math.floor(audio.duration % 60);
-                
-                document.getElementById('duration').textContent = 
-                    `${currentMin}:${currentSec.toString().padStart(2, '0')} / ${durationMin}:${durationSec.toString().padStart
+            audio.src = song.file
