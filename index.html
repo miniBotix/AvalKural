@@ -336,31 +336,6 @@
             box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
         }
 
-        .music-card::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.4) 0%, rgba(0, 212, 255, 0.2) 30%, transparent 70%);
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 0;
-            transform: translate(-50%, -50%);
-            left: var(--mouse-x, 50%);
-            top: var(--mouse-y, 50%);
-        }
-
-        .music-card:hover::before {
-            opacity: 1;
-        }
-
-        .music-card > * {
-            position: relative;
-            z-index: 1;
-        }
-
         .music-card img {
             width: 100%;
             height: 220px;
@@ -425,31 +400,6 @@
             box-shadow: 0 5px 20px rgba(0, 212, 255, 0.2);
         }
 
-        .song-item::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.4) 0%, rgba(0, 212, 255, 0.2) 30%, transparent 70%);
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 0;
-            transform: translate(-50%, -50%);
-            left: var(--mouse-x, 50%);
-            top: var(--mouse-y, 50%);
-        }
-
-        .song-item:hover::before {
-            opacity: 1;
-        }
-
-        .song-item > * {
-            position: relative;
-            z-index: 1;
-        }
-
         .song-rank {
             font-size: 36px;
             font-weight: 700;
@@ -491,18 +441,6 @@
             color: #aaa;
             font-size: 14px;
             margin-right: 20px;
-        }
-
-        .song-menu {
-            width: 24px;
-            height: 24px;
-            cursor: pointer;
-            opacity: 0.5;
-            transition: opacity 0.3s ease;
-        }
-
-        .song-menu:hover {
-            opacity: 1;
         }
 
         .audio-player {
@@ -594,26 +532,11 @@
             padding-right: 20px;
         }
 
-        .powered-by a {
-            color: #00d4ff;
-            text-decoration: none;
-            font-weight: 600;
-        }
-
-        .powered-by a:hover {
-            text-decoration: underline;
-        }
-
         .no-results {
             text-align: center;
             padding: 60px 20px;
             color: #666;
             grid-column: 1 / -1;
-        }
-
-        .no-results h3 {
-            font-size: 24px;
-            margin-bottom: 10px;
         }
 
         @media (max-width: 768px) {
@@ -634,39 +557,8 @@
                 width: 100%;
             }
 
-            .hero-image img {
-                height: 300px;
-            }
-
-            .hero-content h1 {
-                font-size: 32px;
-            }
-
             .recently-played {
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            }
-
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-
-            .search-box {
-                max-width: 100%;
-            }
-
-            .search-box input {
-                width: 200px;
-            }
-
-            .audio-player {
-                left: 0;
-                padding: 10px 15px;
-            }
-
-            .player-song-info {
-                min-width: auto;
             }
         }
     </style>
@@ -678,20 +570,17 @@
             <div class="nav-icon active" id="homeIcon">
                 <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
             </div>
-            <div class="nav-icon" id="contactIcon">
-                <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
-            </div>
-            <div class="nav-icon" id="micIcon">
+            <div class="nav-icon" id="micIcon" onclick="toggleSingerPopup()">
                 <svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3z"/><path d="M17 11c0 2.76-2.24 5-5 5s-5-2.24-5-5H5c0 3.53 2.61 6.43 6 6.92V21h2v-3.08c3.39-.49 6-3.39 6-6.92h-2z"/></svg>
             </div>
         </div>
 
         <div class="singer-popup" id="singerPopup">
             <h3>Select Singer</h3>
-            <div class="singer-item active" data-singer="all">All Songs</div>
-            <div class="singer-item" data-singer="anaz">Anaz</div>
-            <div class="singer-item" data-singer="riya">Riya</div>
-            <div class="singer-item" data-singer="ragesh">Ragesh</div>
+            <div class="singer-item active" data-singer="all" onclick="filterBySinger('all')">All Songs</div>
+            <div class="singer-item" data-singer="anaz" onclick="filterBySinger('anaz')">Anaz</div>
+            <div class="singer-item" data-singer="riya" onclick="filterBySinger('riya')">Riya</div>
+            <div class="singer-item" data-singer="ragesh" onclick="filterBySinger('ragesh')">Ragesh</div>
         </div>
 
         <div class="main-content">
@@ -706,7 +595,7 @@
                         </button>
                     </div>
                     <div class="trending-text">
-                        Trending Songs : <span id="trendingSongs">Loading...</span>
+                        Trending: <span id="trendingSongs">Loading...</span>
                     </div>
                 </div>
             </div>
@@ -716,11 +605,9 @@
                     <img src="author.jpg" alt="Featured Artist" onerror="this.src='https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=500&fit=crop'">
                 </div>
                 <div class="hero-content">
-                    <h1>Riya's<br><span>Voice of an Angel !</span></h1>
+                    <h1>Riya's<br><span>Voice of an Angel!</span></h1>
                     <p class="hero-description">
-                        Dream your moments, Until I Met You, Gimme Some Courage, Dark Alley, One More Of A Stranger, Endless
-                        <br><br>
-                        Things, The Heartbeat Stops, Walking Promises, Desired Games and many more...
+                        Dream your moments, Until I Met You, Gimme Some Courage, Dark Alley, One More Of A Stranger, Endless Things, The Heartbeat Stops, Walking Promises, Desired Games and many more...
                     </p>
                     <div class="hero-buttons">
                         <button class="btn-primary" onclick="playRandomSong()">Listen Now</button>
@@ -730,16 +617,14 @@
 
             <div class="section-header">
                 <h2>Recently Played</h2>
-                <span class="view-more" onclick="scrollToPlaylist()">View More</span>
             </div>
             <div class="recently-played" id="recentlyPlayed">
                 <div class="no-results">
                     <h3>Loading songs...</h3>
-                    <p>Please wait</p>
                 </div>
             </div>
 
-            <div class="playlist-section" id="playlistSection">
+            <div class="playlist-section">
                 <h2>All Songs</h2>
                 <div id="playlistContainer"></div>
             </div>
@@ -767,9 +652,6 @@
             </div>
         </div>
         <div class="song-duration" id="duration">0:00 / 0:00</div>
-        <div class="powered-by">
-            Powered by <a href="#" target="_blank">miniBotix</a>
-        </div>
     </div>
 
     <audio id="audioElement"></audio>
@@ -779,83 +661,67 @@
         let filteredPlaylist = [];
         let currentSongIndex = 0;
         let currentFilter = 'all';
+        let isPlaying = false;
         const audio = document.getElementById('audioElement');
         const playPauseBtn = document.getElementById('playPauseBtn');
         const progress = document.getElementById('progress');
         const searchInput = document.getElementById('searchInput');
 
-        // Default playlist data
-        const defaultPlaylist = [
-            {
-                id: "1",
-                name: "Dream Your Moments",
-                singer: "anaz",
-                file: "kadhaipoma.mp3",
-                img: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=400&fit=crop",
-                description: "Anaz soulful cover"
-            },
-            {
-                id: "2",
-                name: "Until I Met You",
-                singer: "riya",
-                file: "2.mp3",
-                img: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=400&fit=crop",
-                description: "Riya romantic ballad"
-            },
-            {
-                id: "3",
-                name: "Gimme Some Courage",
-                singer: "ragesh",
-                file: "3.mp3",
-                img: "https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&h=400&fit=crop",
-                description: "Ragesh uplifting anthem"
-            },
-            {
-                id: "4",
-                name: "Dark Alley",
-                singer: "riya",
-                file: "4.mp3",
-                img: "https://images.unsplash.com/photo-1511379938547-c1f69b13d835?w=400&h=400&fit=crop",
-                description: "Dark atmospheric track"
-            },
-            {
-                id: "5",
-                name: "One More Of A Stranger",
-                singer: "anaz",
-                file: "5.mp3",
-                img: "https://images.unsplash.com/photo-1487180144351-b8472da7d491?w=400&h=400&fit=crop",
-                description: "Mysterious melody"
-            },
-            {
-                id: "6",
-                name: "Endless Things",
-                singer: "ragesh",
-                file: "6.mp3",
-                img: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=400&h=400&fit=crop",
-                description: "Epic composition"
-            }
-        ];
+        // Initialize on page load
+        window.addEventListener('load', loadPlaylist);
 
         async function loadPlaylist() {
             try {
                 const response = await fetch('./playlist.json');
-                if (!response.ok) throw new Error('File not found');
+                if (!response.ok) throw new Error('Failed to load');
                 const data = await response.json();
-                
-                if (!Array.isArray(data)) throw new Error('Invalid format');
-                
                 allPlaylist = data;
-                console.log('Loaded from playlist.json:', allPlaylist.length, 'songs');
+                filteredPlaylist = [...allPlaylist];
+                displayRecentlyPlayed();
+                displayPlaylist();
+                updateTrendingSongs();
             } catch (error) {
-                console.warn('Could not load playlist.json:', error.message);
-                console.log('Using default playlist instead');
-                allPlaylist = [...defaultPlaylist];
+                console.error('Error loading playlist.json:', error);
+                loadFallbackPlaylist();
             }
-            
+        }
+
+        function loadFallbackPlaylist() {
+            allPlaylist = [
+                {
+                    id: "1",
+                    name: "Dream Your Moments",
+                    singer: "anaz",
+                    file: "kadhaipoma.mp3",
+                    img: "1.jpg",
+                    description: "Anaz soulful cover"
+                },
+                {
+                    id: "2",
+                    name: "Until I Met You",
+                    singer: "riya",
+                    file: "2.mp3",
+                    img: "2.jpg",
+                    description: "Riya romantic ballad"
+                },
+                {
+                    id: "3",
+                    name: "Gimme Some Courage",
+                    singer: "ragesh",
+                    file: "3.mp3",
+                    img: "3.jpg",
+                    description: "Ragesh uplifting anthem"
+                }
+            ];
             filteredPlaylist = [...allPlaylist];
             displayRecentlyPlayed();
             displayPlaylist();
             updateTrendingSongs();
+        }
+
+        function toggleSingerPopup() {
+            const popup = document.getElementById('singerPopup');
+            popup.classList.toggle('active');
         }
 
         function filterBySinger(singer) {
@@ -867,35 +733,30 @@
                 );
             }
             currentFilter = singer;
-            
             document.querySelectorAll('.singer-item').forEach(item => {
                 item.classList.remove('active');
                 if (item.getAttribute('data-singer') === singer) {
                     item.classList.add('active');
                 }
             });
-            
             displayRecentlyPlayed();
             displayPlaylist();
         }
 
         function searchMusic() {
             const searchTerm = searchInput.value.toLowerCase().trim();
+            const baseList = currentFilter === 'all' ? allPlaylist : 
+                allPlaylist.filter(s => s.singer && s.singer.toLowerCase() === currentFilter.toLowerCase());
             
             if (searchTerm === '') {
-                filteredPlaylist = currentFilter === 'all' ? [...allPlaylist] : 
-                    allPlaylist.filter(s => s.singer && s.singer.toLowerCase() === currentFilter.toLowerCase());
+                filteredPlaylist = [...baseList];
             } else {
-                const baseList = currentFilter === 'all' ? allPlaylist : 
-                    allPlaylist.filter(s => s.singer && s.singer.toLowerCase() === currentFilter.toLowerCase());
-                
                 filteredPlaylist = baseList.filter(song => 
                     song.name.toLowerCase().includes(searchTerm) ||
                     (song.description && song.description.toLowerCase().includes(searchTerm)) ||
                     (song.singer && song.singer.toLowerCase().includes(searchTerm))
                 );
             }
-            
             displayRecentlyPlayed();
             displayPlaylist();
         }
@@ -905,15 +766,128 @@
         function displayRecentlyPlayed() {
             const container = document.getElementById('recentlyPlayed');
             container.innerHTML = '';
-            
             const displaySongs = filteredPlaylist.slice(0, 3);
             
             if (displaySongs.length === 0) {
-                container.innerHTML = '<div class="no-results"><h3>No songs found</h3><p>Try a different search or singer</p></div>';
+                container.innerHTML = '<div class="no-results"><h3>No songs found</h3></div>';
                 return;
             }
             
-            displaySongs.forEach((song) => {
+            displaySongs.forEach((song, index) => {
                 const card = document.createElement('div');
                 card.className = 'music-card';
-                const
+                card.onclick = () => playSong(index);
+                card.innerHTML = `
+                    <img src="${song.img}" alt="${song.name}" onerror="this.src='https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=400&fit=crop'">
+                    <div class="music-info">
+                        <h3>${song.name}</h3>
+                        <p>${song.description || (song.singer ? song.singer + ' cover' : 'Musical track')}</p>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function displayPlaylist() {
+            const container = document.getElementById('playlistContainer');
+            container.innerHTML = '';
+            
+            if (filteredPlaylist.length === 0) {
+                container.innerHTML = '<div class="no-results"><h3>No songs found</h3></div>';
+                return;
+            }
+            
+            filteredPlaylist.forEach((song, index) => {
+                const item = document.createElement('div');
+                item.className = 'song-item';
+                item.onclick = () => playSong(index);
+                item.innerHTML = `
+                    <div class="song-rank">${index + 1}</div>
+                    <div class="song-thumbnail">
+                        <img src="${song.img}" alt="${song.name}" onerror="this.src='https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=60&h=60&fit=crop'">
+                    </div>
+                    <div class="song-details">
+                        <h4>${song.name}</h4>
+                        <p>${song.singer || 'Unknown Artist'}</p>
+                    </div>
+                    <div class="song-duration">${song.duration || '3:45'}</div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function updateTrendingSongs() {
+            const names = filteredPlaylist.slice(0, 2).map(s => s.name).join(', ');
+            document.getElementById('trendingSongs').textContent = names || 'No songs';
+        }
+
+        function playSong(index) {
+            currentSongIndex = index;
+            const song = filteredPlaylist[index];
+            audio.src = song.file;
+            document.getElementById('currentSongName').textContent = song.name;
+            document.getElementById('currentSongArtist').textContent = song.singer || 'Unknown';
+            document.getElementById('currentSongImg').src = song.img;
+            document.getElementById('audioPlayer').classList.add('active');
+            audio.play();
+            isPlaying = true;
+            playPauseBtn.textContent = '⏸️';
+        }
+
+        function playRandomSong() {
+            if (filteredPlaylist.length > 0) {
+                const randomIndex = Math.floor(Math.random() * filteredPlaylist.length);
+                playSong(randomIndex);
+            }
+        }
+
+        function togglePlay() {
+            if (audio.src) {
+                if (isPlaying) {
+                    audio.pause();
+                    playPauseBtn.textContent = '▶️';
+                } else {
+                    audio.play();
+                    playPauseBtn.textContent = '⏸️';
+                }
+                isPlaying = !isPlaying;
+            }
+        }
+
+        function nextSong() {
+            if (filteredPlaylist.length > 0) {
+                currentSongIndex = (currentSongIndex + 1) % filteredPlaylist.length;
+                playSong(currentSongIndex);
+            }
+        }
+
+        function previousSong() {
+            if (filteredPlaylist.length > 0) {
+                currentSongIndex = (currentSongIndex - 1 + filteredPlaylist.length) % filteredPlaylist.length;
+                playSong(currentSongIndex);
+            }
+        }
+
+        function seek(e) {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const percent = (e.clientX - rect.left) / rect.width;
+            audio.currentTime = percent * audio.duration;
+        }
+
+        audio.addEventListener('timeupdate', () => {
+            if (audio.duration) {
+                const percent = (audio.currentTime / audio.duration) * 100;
+                progress.style.width = percent + '%';
+                const mins = Math.floor(audio.currentTime / 60);
+                const secs = Math.floor(audio.currentTime % 60);
+                const totalMins = Math.floor(audio.duration / 60);
+                const totalSecs = Math.floor(audio.duration % 60);
+                document.getElementById('duration').textContent = 
+                    `${mins}:${secs.toString().padStart(2, '0')} / ${totalMins}:${totalSecs.toString().padStart(2, '0')}`;
+            }
+        });
+
+        audio.addEventListener('ended', nextSong);
+    </script>
+</body>
+</html>
