@@ -896,6 +896,155 @@
                         <h3>${song.name}</h3>
                         <p>${song.description || (song.singer ? song.singer + ' cover' : 'Musical track')}</p>
                     </div>
+                    <div class="song-duration">5:10</div>
+                    <div class="song-menu">
+                        <svg viewBox="0 0 24 24" fill="#fff">
+                            <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                        </svg>
+                    </div>
+                `;
+                container.appendChild(item);
+            });
+        }
+
+        function updateTrendingSongs() {
+            const trendingElement = document.getElementById('trendingSongs');
+            const songNames = allPlaylist.map(s => s.name).slice(0, 3).join(', ');
+            trendingElement.textContent = songNames + (allPlaylist.length > 3 ? ', ...' : '');
+        }
+
+        function playSong(index) {
+            if (filteredPlaylist.length === 0) return;
+            
+            currentSongIndex = index;
+            const song = filteredPlaylist[index];
+            
+            console.log('Playing song:', song);
+            
+            audio.src = song.file;
+            audio.play().catch(err => {
+                console.error('Error playing audio:', err);
+                alert('Error playing song. Please check if the audio file exists: ' + song.file);
+            });
+            
+            document.getElementById('currentSongImg').src = song.img;
+            document.getElementById('currentSongName').textContent = song.name;
+            document.getElementById('currentSongArtist').textContent = song.description || (song.singer || 'Unknown Artist');
+            document.getElementById('audioPlayer').classList.add('active');
+            playPauseBtn.textContent = '⏸️';
+        }
+
+        function playRandomSong() {
+            if (filteredPlaylist.length > 0) {
+                const randomIndex = Math.floor(Math.random() * filteredPlaylist.length);
+                playSong(randomIndex);
+            }
+        }
+
+        function togglePlay() {
+            if (audio.paused) {
+                audio.play();
+                playPauseBtn.textContent = '⏸️';
+            } else {
+                audio.pause();
+                playPauseBtn.textContent = '▶️';
+            }
+        }
+
+        function nextSong() {
+            currentSongIndex = (currentSongIndex + 1) % filteredPlaylist.length;
+            playSong(currentSongIndex);
+        }
+
+        function previousSong() {
+            currentSongIndex = (currentSongIndex - 1 + filteredPlaylist.length) % filteredPlaylist.length;
+            playSong(currentSongIndex);
+        }
+
+        function seek(event) {
+            const progressBar = event.currentTarget;
+            const clickPosition = event.offsetX;
+            const barWidth = progressBar.offsetWidth;
+            const seekTime = (clickPosition / barWidth) * audio.duration;
+            audio.currentTime = seekTime;
+        }
+
+        function scrollToWeekly() {
+            document.getElementById('weeklySection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Update progress bar
+        audio.addEventListener('timeupdate', () => {
+            if (audio.duration) {
+                const progressPercent = (audio.currentTime / audio.duration) * 100;
+                progress.style.width = progressPercent + '%';
+                
+                const currentMin = Math.floor(audio.currentTime / 60);
+                const currentSec = Math.floor(audio.currentTime % 60);
+                const durationMin = Math.floor(audio.duration / 60);
+                const durationSec = Math.floor(audio.duration % 60);
+                
+                document.getElementById('duration').textContent = 
+                    `${currentMin}:${currentSec.toString().padStart(2, '0')} / ${durationMin}:${durationSec.toString().padStart(2, '0')}`;
+            }
+        });
+
+        // Auto next song
+        audio.addEventListener('ended', () => {
+            nextSong();
+        });
+
+        // Glow effect
+        document.addEventListener('mousemove', (e) => {
+            glowEffect.style.left = e.clientX + 'px';
+            glowEffect.style.top = e.clientY + 'px';
+            glowEffect.style.opacity = '1';
+        });
+
+        document.addEventListener('mouseleave', () => {
+            glowEffect.style.opacity = '0';
+        });
+
+        // Navigation icons
+        document.getElementById('homeIcon').addEventListener('click', () => {
+            document.querySelectorAll('.nav-icon').forEach(icon => icon.classList.remove('active'));
+            document.getElementById('homeIcon').classList.add('active');
+            document.getElementById('singerPopup').classList.remove('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        document.getElementById('contactIcon').addEventListener('click', () => {
+            const popup = document.getElementById('singerPopup');
+            popup.classList.toggle('active');
+        });
+
+        document.getElementById('micIcon').addEventListener('click', () => {
+            alert('Microphone feature coming soon!');
+        });
+
+        // Singer selection
+        document.querySelectorAll('.singer-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const singer = item.getAttribute('data-singer');
+                filterBySinger(singer);
+            });
+        });
+
+        // Click outside to close popup
+        document.addEventListener('click', (e) => {
+            const popup = document.getElementById('singerPopup');
+            const contactIcon = document.getElementById('contactIcon');
+            if (!popup.contains(e.target) && !contactIcon.contains(e.target)) {
+                popup.classList.remove('active');
+            }
+        });
+
+        // Load playlist on page load
+        loadPlaylist();
+    </script>
+</body>
+</html> (song.singer ? song.singer + ' cover' : 'Musical track')}</p>
+                    </div>
                 `;
                 container.appendChild(card);
             });
