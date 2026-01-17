@@ -666,7 +666,7 @@
         <!-- Singer Popup -->
         <div class="singer-popup" id="singerPopup">
             <h3>Select Singer</h3>
-            <div class="singer-item" data-singer="all">All Songs</div>
+            <div class="singer-item active" data-singer="all">All Songs</div>
             <div class="singer-item" data-singer="anaz">Anaz</div>
             <div class="singer-item" data-singer="riya">Riya</div>
             <div class="singer-item" data-singer="ragesh">Ragesh</div>
@@ -714,7 +714,12 @@
                 <h2>Recently Played</h2>
                 <span class="view-more" onclick="scrollToWeekly()">View More</span>
             </div>
-            <div class="recently-played" id="recentlyPlayed"></div>
+            <div class="recently-played" id="recentlyPlayed">
+                <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #aaa;">
+                    <h3>Loading songs...</h3>
+                    <p>Please wait while we load your playlist</p>
+                </div>
+            </div>
 
             <!-- Weekly Top 15 -->
             <div class="weekly-top" id="weeklySection">
@@ -764,33 +769,48 @@
         const glowEffect = document.getElementById('glowEffect');
         const searchInput = document.getElementById('searchInput');
 
-        // Load playlist
+        // Load playlist - FIXED VERSION
         async function loadPlaylist() {
+            console.log('Loading playlist...');
             try {
                 const response = await fetch('playlist.json');
-                allPlaylist = await response.json();
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const data = await response.json();
+                console.log('Playlist loaded:', data);
+                allPlaylist = data;
                 filteredPlaylist = [...allPlaylist];
                 displayRecentlyPlayed();
                 displayWeeklyTop();
                 updateTrendingSongs();
             } catch (error) {
                 console.error('Error loading playlist:', error);
+                // Show default songs with proper paths
                 allPlaylist = [
                     {
                         id: "1",
-                        name: "First Melody",
+                        name: "Dream Your Moments",
                         singer: "anaz",
-                        file: "songs/1.mp3",
-                        img: "img/1.jpg",
+                        file: "kadhaipoma.mp3",
+                        img: "1.jpg",
                         description: "Anaz soulful cover"
                     },
                     {
                         id: "2",
-                        name: "Evening Vibe",
+                        name: "Until I Met You",
                         singer: "riya",
-                        file: "songs/2.mp3",
-                        img: "img/2.jpg",
-                        description: "Riya soft recording"
+                        file: "2.mp3",
+                        img: "2.jpg",
+                        description: "Riya romantic ballad"
+                    },
+                    {
+                        id: "3",
+                        name: "Gimme Some Courage",
+                        singer: "ragesh",
+                        file: "3.mp3",
+                        img: "3.jpg",
+                        description: "Ragesh uplifting anthem"
                     }
                 ];
                 filteredPlaylist = [...allPlaylist];
@@ -801,6 +821,7 @@
         }
 
         function filterBySinger(singer) {
+            console.log('Filtering by singer:', singer);
             if (singer === 'all') {
                 filteredPlaylist = [...allPlaylist];
             } else {
@@ -809,12 +830,22 @@
                 );
             }
             currentFilter = singer;
+            
+            // Update active state
+            document.querySelectorAll('.singer-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.getAttribute('data-singer') === singer) {
+                    item.classList.add('active');
+                }
+            });
+            
             displayRecentlyPlayed();
             displayWeeklyTop();
         }
 
         function searchMusic() {
             const searchTerm = searchInput.value.toLowerCase().trim();
+            console.log('Searching for:', searchTerm);
             
             if (searchTerm === '') {
                 filteredPlaylist = currentFilter === 'all' ? [...allPlaylist] : 
@@ -846,10 +877,12 @@
             const container = document.getElementById('recentlyPlayed');
             container.innerHTML = '';
             
+            console.log('Displaying recently played, songs:', filteredPlaylist.length);
+            
             const displaySongs = filteredPlaylist.slice(0, 4);
             
             if (displaySongs.length === 0) {
-                container.innerHTML = '<div class="no-results"><h3>No songs found</h3><p>Try a different search or singer</p></div>';
+                container.innerHTML = '<div class="no-results" style="grid-column: 1/-1;"><h3>No songs found</h3><p>Try a different search or singer</p></div>';
                 return;
             }
             
@@ -872,6 +905,8 @@
             const container = document.getElementById('weeklyTop');
             container.innerHTML = '';
             
+            console.log('Displaying weekly top, songs:', filteredPlaylist.length);
+            
             if (filteredPlaylist.length === 0) {
                 container.innerHTML = '<div class="no-results"><h3>No songs found</h3><p>Try a different search or singer</p></div>';
                 return;
@@ -888,29 +923,4 @@
                     </div>
                     <div class="song-details">
                         <h4>${song.name}</h4>
-                        <p>${song.description || (song.singer ? song.singer + ' cover' : 'Musical track')}</p>
-                    </div>
-                    <div class="song-duration">5:10</div>
-                    <div class="song-menu">
-                        <svg viewBox="0 0 24 24" fill="#fff">
-                            <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-                        </svg>
-                    </div>
-                `;
-                container.appendChild(item);
-            });
-        }
-
-        function updateTrendingSongs() {
-            const trendingElement = document.getElementById('trendingSongs');
-            const songNames = allPlaylist.map(s => s.name).slice(0, 3).join(', ');
-            trendingElement.textContent = songNames + (allPlaylist.length > 3 ? ', ...' : '');
-        }
-
-        function playSong(index) {
-            if (filteredPlaylist.length === 0) return;
-            
-            currentSongIndex = index;
-            const song = filteredPlaylist[index];
-            
-            audio.src = song.file
+                        <p>${song.description ||
