@@ -1,14 +1,16 @@
 [
-  {
-    "id": "001",
-    "name": "First Melody",
-    "file": "songs/kadhaipoma.mp3",
-    "description": "Riya sang this during office cultural day. Soft melody vibe."
-  },
-  {
-    "id": "002",
-    "name": "Evening Raagam",
-    "file": "songs/song2.mp3",
-    "description": "One take recording – her favorite song."
-  }
+ {
+  "id":"1",
+  "name":"First Melody",
+  "file":"songs/1.mp3",
+  "img":"img/1.jpg",
+  "description":"Riya soulful cover"
+ },
+ {
+  "id":"2",
+  "name":"Evening Vibe",
+  "file":"songs/2.mp3",
+  "img":"img/2.jpg",
+  "description":"Soft recording"
+ }
 ]
