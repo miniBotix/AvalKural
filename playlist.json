@@ -3,14 +3,14 @@
    "id":"001",
    "name":"Riya Melody",
    "file":"songs/kadhaipoma.mp3",
-   "image":"songs/she_1.jpg",
+   "image":"img/she_1.jpg",
    "description":"Her magical voice first cover"
  },
  {
    "id":"002",
    "name":"Aval Dream",
    "file":"songs/2.mp3",
-   "image":"songs/2.jpg",
+   "image":"img/she_1.jpg",
    "description":"Soft romantic vibe"
  }
 ]
