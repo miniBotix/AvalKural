@@ -579,11 +579,8 @@
         </div>
 
         <div class="singer-popup" id="singerPopup">
-            <h3>Select Singer</h3>
-            <div class="singer-item active" data-singer="all" onclick="filterBySinger('all')">All Songs</div>
-            <div class="singer-item" data-singer="anaz" onclick="filterBySinger('anaz')">Anaz</div>
-            <div class="singer-item" data-singer="riya" onclick="filterBySinger('riya')">Riya</div>
-            <div class="singer-item" data-singer="ragesh" onclick="filterBySinger('ragesh')">Ragesh</div>
+            <h3>Singers</h3>
+            <div id="singerList"></div>
         </div>
 
         <div class="main-content">
@@ -655,6 +652,9 @@
             </div>
         </div>
         <div class="song-duration" id="duration">0:00 / 0:00</div>
+        <div class="powered-by">
+            Powered by <a href="#" target="_blank">miniBotix</a>
+        </div>
     </div>
 
     <audio id="audioElement"></audio>
@@ -671,7 +671,10 @@
         const searchInput = document.getElementById('searchInput');
 
         // Initialize on page load
-        window.addEventListener('load', loadPlaylist);
+        window.addEventListener('load', () => {
+            loadPlaylist();
+            loadSingers();
+        });
 
         async function loadPlaylist() {
             try {
@@ -685,41 +688,7 @@
                 updateTrendingSongs();
             } catch (error) {
                 console.error('Error loading playlist.json:', error);
-                loadFallbackPlaylist();
             }
-        }
-
-        function loadFallbackPlaylist() {
-            allPlaylist = [
-                {
-                    id: "1",
-                    name: "Dream Your Moments",
-                    singer: "anaz",
-                    file: "kadhaipoma.mp3",
-                    img: "1.jpg",
-                    description: "Anaz soulful cover"
-                },
-                {
-                    id: "2",
-                    name: "Until I Met You",
-                    singer: "riya",
-                    file: "2.mp3",
-                    img: "2.jpg",
-                    description: "Riya romantic ballad"
-                },
-                {
-                    id: "3",
-                    name: "Gimme Some Courage",
-                    singer: "ragesh",
-                    file: "3.mp3",
-                    img: "3.jpg",
-                    description: "Ragesh uplifting anthem"
-                }
-            ];
-            filteredPlaylist = [...allPlaylist];
-            displayRecentlyPlayed();
-            displayPlaylist();
-            updateTrendingSongs();
         }
 
         function toggleSingerPopup() {
@@ -732,7 +701,7 @@
                 filteredPlaylist = [...allPlaylist];
             } else {
                 filteredPlaylist = allPlaylist.filter(song => 
-                    song.singer && song.singer.toLowerCase() === singer.toLowerCase()
+                    song.name && song.name.toLowerCase().includes(singer.toLowerCase())
                 );
             }
             currentFilter = singer;
@@ -781,10 +750,10 @@
                 card.className = 'music-card';
                 card.onclick = () => playSong(index);
                 card.innerHTML = `
-                    <img src="${song.img}" alt="${song.name}" onerror="this.src='https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=400&fit=crop'">
+                    <img src="${song.image}" alt="${song.name}" onerror="this.src='https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=400&fit=crop'">
                     <div class="music-info">
                         <h3>${song.name}</h3>
-                        <p>${song.description || (song.singer ? song.singer + ' cover' : 'Musical track')}</p>
+                        <p>${song.description || 'Musical track'}</p>
                     </div>
                 `;
                 container.appendChild(card);
@@ -807,11 +776,11 @@
                 item.innerHTML = `
                     <div class="song-rank">${index + 1}</div>
                     <div class="song-thumbnail">
-                        <img src="${song.img}" alt="${song.name}" onerror="this.src='https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=60&h=60&fit=crop'">
+                        <img src="${song.image}" alt="${song.name}" onerror="this.src='https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=60&h=60&fit=crop'">
                     </div>
                     <div class="song-details">
                         <h4>${song.name}</h4>
-                        <p>${song.singer || 'Unknown Artist'}</p>
+                        <p>${song.description || 'Musical track'}</p>
                     </div>
                     <div class="song-duration">${song.duration || '3:45'}</div>
                 `;
@@ -829,8 +798,8 @@
             const song = filteredPlaylist[index];
             audio.src = song.file;
             document.getElementById('currentSongName').textContent = song.name;
-            document.getElementById('currentSongArtist').textContent = song.singer || 'Unknown';
-            document.getElementById('currentSongImg').src = song.img;
+            document.getElementById('currentSongArtist').textContent = song.description || 'AvalKural';
+            document.getElementById('currentSongImg').src = song.image;
             document.getElementById('audioPlayer').classList.add('active');
             audio.play();
             isPlaying = true;
@@ -891,6 +860,37 @@
         });
 
         audio.addEventListener('ended', nextSong);
+
+        function goToStories() {
+            window.location.href = './story.html';
+        }
+
+        function loadSingers() {
+            fetch('./singers.json')
+                .then(response => response.json())
+                .then(data => {
+                    const singerList = document.getElementById('singerList');
+                    singerList.innerHTML = '<div class="singer-item active" data-singer="all" onclick="filterBySinger(\'all\')">All Songs</div>';
+                    data.forEach(singer => {
+                        const div = document.createElement('div');
+                        div.className = 'singer-item';
+                        div.setAttribute('data-singer', singer.name.toLowerCase());
+                        div.onclick = () => filterBySinger(singer.name.toLowerCase());
+                        div.textContent = singer.name;
+                        singerList.appendChild(div);
+                    });
+                })
+                .catch(error => {
+                    console.error('Error loading singers:', error);
+                    const singerList = document.getElementById('singerList');
+                    singerList.innerHTML = `
+                        <div class="singer-item active" data-singer="all" onclick="filterBySinger('all')">All Songs</div>
+                        <div class="singer-item" data-singer="anaz" onclick="filterBySinger('anaz')">Anaz</div>
+                        <div class="singer-item" data-singer="riya" onclick="filterBySinger('riya')">Riya</div>
+                        <div class="singer-item" data-singer="ragesh" onclick="filterBySinger('ragesh')">Ragesh</div>
+                    `;
+                });
+        }
     </script>
 </body>
 </html>
