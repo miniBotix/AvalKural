@@ -342,6 +342,12 @@
             box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
         }
 
+        .music-card::before, .top-song-item::before {
+            transform: translate(-50%, -50%);
+            left: var(--mouse-x, 50%);
+            top: var(--mouse-y, 50%);
+        }
+
         .music-card img {
             width: 100%;
             height: 220px;
@@ -461,17 +467,31 @@
         }
 
         /* Glow Effect */
-        .glow-effect {
-            position: fixed;
+        .music-card, .top-song-item {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .music-card::before, .top-song-item::before {
+            content: '';
+            position: absolute;
             width: 300px;
             height: 300px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.3) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.4) 0%, rgba(0, 212, 255, 0.2) 30%, transparent 70%);
             pointer-events: none;
-            transform: translate(-50%, -50%);
             opacity: 0;
             transition: opacity 0.3s ease;
-            z-index: 9999;
+            z-index: 0;
+        }
+
+        .music-card:hover::before, .top-song-item:hover::before {
+            opacity: 1;
+        }
+
+        .music-card > *, .top-song-item > * {
+            position: relative;
+            z-index: 1;
         }
 
         /* Audio Player */
@@ -643,7 +663,6 @@
     </style>
 </head>
 <body>
-    <div class="glow-effect" id="glowEffect"></div>
     
     <div class="container">
         <!-- Sidebar -->
@@ -766,7 +785,6 @@
         const audio = document.getElementById('audioElement');
         const playPauseBtn = document.getElementById('playPauseBtn');
         const progress = document.getElementById('progress');
-        const glowEffect = document.getElementById('glowEffect');
         const searchInput = document.getElementById('searchInput');
 
         // Load playlist - FIXED VERSION
@@ -992,17 +1010,6 @@
         // Auto next song
         audio.addEventListener('ended', () => {
             nextSong();
-        });
-
-        // Glow effect
-        document.addEventListener('mousemove', (e) => {
-            glowEffect.style.left = e.clientX + 'px';
-            glowEffect.style.top = e.clientY + 'px';
-            glowEffect.style.opacity = '1';
-        });
-
-        document.addEventListener('mouseleave', () => {
-            glowEffect.style.opacity = '0';
         });
 
         // Navigation icons
