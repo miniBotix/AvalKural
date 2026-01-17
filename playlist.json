@@ -2,9 +2,27 @@
   {
     "id": "1",
     "name": "Dream Your Moments",
-    "singer": "anaz",
-    "file": "kadhaipoma.mp3",
+    "singer": "riya",
+    "file": "songs/1.mp3",
     "img": "1.jpg",
-    "description": "Anaz soulful cover"
+    "description": "Riya soulful cover"
+  },
+
+  {
+    "id": "2",
+    "name": "Until I Met You",
+    "singer": "riya",
+    "file": "songs/2.mp3",
+    "img": "2.jpg",
+    "description": "Romantic melody"
+  },
+
+  {
+    "id": "3",
+    "name": "Gimme Some Courage",
+    "singer": "anaz",
+    "file": "songs/3.mp3",
+    "img": "3.jpg",
+    "description": "Motivational cover"
   }
 ]
