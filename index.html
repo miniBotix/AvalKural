@@ -24,7 +24,6 @@
             min-height: 100vh;
         }
 
-        /* Sidebar */
         .sidebar {
             width: 64px;
             background: #0f0f1e;
@@ -86,7 +85,6 @@
             fill: #fff;
         }
 
-        /* Singer Popup */
         .singer-popup {
             position: fixed;
             left: 80px;
@@ -147,7 +145,6 @@
             border-color: #00d4ff;
         }
 
-        /* Main Content */
         .main-content {
             margin-left: 64px;
             flex: 1;
@@ -156,7 +153,6 @@
             position: relative;
         }
 
-        /* Header */
         .header {
             display: flex;
             justify-content: space-between;
@@ -213,7 +209,6 @@
             font-weight: 500;
         }
 
-        /* Hero Section */
         .hero-section {
             display: flex;
             align-items: center;
@@ -296,7 +291,6 @@
             box-shadow: 0 10px 30px rgba(0, 212, 255, 0.4);
         }
 
-        /* Recently Played Section */
         .section-header {
             display: flex;
             justify-content: space-between;
@@ -342,10 +336,29 @@
             box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
         }
 
-        .music-card::before, .top-song-item::before {
+        .music-card::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.4) 0%, rgba(0, 212, 255, 0.2) 30%, transparent 70%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
             transform: translate(-50%, -50%);
             left: var(--mouse-x, 50%);
             top: var(--mouse-y, 50%);
+        }
+
+        .music-card:hover::before {
+            opacity: 1;
+        }
+
+        .music-card > * {
+            position: relative;
+            z-index: 1;
         }
 
         .music-card img {
@@ -370,12 +383,11 @@
             color: #aaa;
         }
 
-        /* Weekly Top Section */
-        .weekly-top {
+        .playlist-section {
             margin-bottom: 50px;
         }
 
-        .weekly-top h2 {
+        .playlist-section h2 {
             font-size: 24px;
             font-weight: 600;
             color: #00d4ff;
@@ -384,7 +396,7 @@
             display: inline-block;
         }
 
-        .weekly-top h2::after {
+        .playlist-section h2::after {
             content: '';
             position: absolute;
             bottom: -5px;
@@ -394,7 +406,7 @@
             background: #00d4ff;
         }
 
-        .top-song-item {
+        .song-item {
             display: flex;
             align-items: center;
             background: #16213e;
@@ -403,12 +415,39 @@
             margin-bottom: 15px;
             cursor: pointer;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .top-song-item:hover {
+        .song-item:hover {
             background: #1e2a47;
             transform: translateX(10px);
             box-shadow: 0 5px 20px rgba(0, 212, 255, 0.2);
+        }
+
+        .song-item::before {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.4) 0%, rgba(0, 212, 255, 0.2) 30%, transparent 70%);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+            transform: translate(-50%, -50%);
+            left: var(--mouse-x, 50%);
+            top: var(--mouse-y, 50%);
+        }
+
+        .song-item:hover::before {
+            opacity: 1;
+        }
+
+        .song-item > * {
+            position: relative;
+            z-index: 1;
         }
 
         .song-rank {
@@ -466,35 +505,6 @@
             opacity: 1;
         }
 
-        /* Glow Effect */
-        .music-card, .top-song-item {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .music-card::before, .top-song-item::before {
-            content: '';
-            position: absolute;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 212, 255, 0.4) 0%, rgba(0, 212, 255, 0.2) 30%, transparent 70%);
-            pointer-events: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 0;
-        }
-
-        .music-card:hover::before, .top-song-item:hover::before {
-            opacity: 1;
-        }
-
-        .music-card > *, .top-song-item > * {
-            position: relative;
-            z-index: 1;
-        }
-
-        /* Audio Player */
         .audio-player {
             position: fixed;
             bottom: 0;
@@ -594,11 +604,11 @@
             text-decoration: underline;
         }
 
-        /* No Results */
         .no-results {
             text-align: center;
             padding: 60px 20px;
             color: #666;
+            grid-column: 1 / -1;
         }
 
         .no-results h3 {
@@ -606,7 +616,6 @@
             margin-bottom: 10px;
         }
 
-        /* Responsive */
         @media (max-width: 768px) {
             .main-content {
                 padding: 15px;
@@ -663,9 +672,7 @@
     </style>
 </head>
 <body>
-    
     <div class="container">
-        <!-- Sidebar -->
         <div class="sidebar">
             <div class="logo">Aval</div>
             
@@ -682,7 +689,6 @@
             </div>
         </div>
 
-        <!-- Singer Popup -->
         <div class="singer-popup" id="singerPopup">
             <h3>Select Singer</h3>
             <div class="singer-item active" data-singer="all">All Songs</div>
@@ -691,9 +697,7 @@
             <div class="singer-item" data-singer="ragesh">Ragesh</div>
         </div>
 
-        <!-- Main Content -->
         <div class="main-content">
-            <!-- Header -->
             <div class="header">
                 <div class="search-container">
                     <div class="search-box">
@@ -710,7 +714,6 @@
                 </div>
             </div>
 
-            <!-- Hero Section -->
             <div class="hero-section">
                 <div class="hero-image">
                     <img src="author.jpg" alt="Featured Artist" onerror="this.src='https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=500&fit=crop'">
@@ -728,27 +731,24 @@
                 </div>
             </div>
 
-            <!-- Recently Played -->
             <div class="section-header">
                 <h2>Recently Played</h2>
-                <span class="view-more" onclick="scrollToWeekly()">View More</span>
+                <span class="view-more" onclick="scrollToPlaylist()">View More</span>
             </div>
             <div class="recently-played" id="recentlyPlayed">
-                <div style="grid-column: 1/-1; text-align: center; padding: 40px; color: #aaa;">
+                <div class="no-results">
                     <h3>Loading songs...</h3>
-                    <p>Please wait while we load your playlist</p>
+                    <p>Please wait</p>
                 </div>
             </div>
 
-            <!-- Weekly Top 15 -->
-            <div class="weekly-top" id="weeklySection">
-                <h2>Weekly Top 15</h2>
-                <div id="weeklyTop"></div>
+            <div class="playlist-section" id="playlistSection">
+                <h2>All Songs</h2>
+                <div id="playlistContainer"></div>
             </div>
         </div>
     </div>
 
-    <!-- Audio Player -->
     <div class="audio-player" id="audioPlayer">
         <div class="player-song-info">
             <div class="player-thumbnail">
@@ -787,24 +787,20 @@
         const progress = document.getElementById('progress');
         const searchInput = document.getElementById('searchInput');
 
-        // Load playlist - FIXED VERSION
         async function loadPlaylist() {
-            console.log('Loading playlist...');
             try {
                 const response = await fetch('playlist.json');
                 if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    throw new Error('playlist.json not found');
                 }
                 const data = await response.json();
-                console.log('Playlist loaded:', data);
                 allPlaylist = data;
                 filteredPlaylist = [...allPlaylist];
                 displayRecentlyPlayed();
-                displayWeeklyTop();
+                displayPlaylist();
                 updateTrendingSongs();
             } catch (error) {
-                console.error('Error loading playlist:', error);
-                // Show default songs with proper paths
+                console.error('Error:', error);
                 allPlaylist = [
                     {
                         id: "1",
@@ -833,13 +829,12 @@
                 ];
                 filteredPlaylist = [...allPlaylist];
                 displayRecentlyPlayed();
-                displayWeeklyTop();
+                displayPlaylist();
                 updateTrendingSongs();
             }
         }
 
         function filterBySinger(singer) {
-            console.log('Filtering by singer:', singer);
             if (singer === 'all') {
                 filteredPlaylist = [...allPlaylist];
             } else {
@@ -849,7 +844,6 @@
             }
             currentFilter = singer;
             
-            // Update active state
             document.querySelectorAll('.singer-item').forEach(item => {
                 item.classList.remove('active');
                 if (item.getAttribute('data-singer') === singer) {
@@ -858,12 +852,11 @@
             });
             
             displayRecentlyPlayed();
-            displayWeeklyTop();
+            displayPlaylist();
         }
 
         function searchMusic() {
             const searchTerm = searchInput.value.toLowerCase().trim();
-            console.log('Searching for:', searchTerm);
             
             if (searchTerm === '') {
                 filteredPlaylist = currentFilter === 'all' ? [...allPlaylist] : 
@@ -880,188 +873,50 @@
             }
             
             displayRecentlyPlayed();
-            displayWeeklyTop();
+            displayPlaylist();
         }
 
-        searchInput.addEventListener('keyup', (e) => {
-            if (e.key === 'Enter') {
-                searchMusic();
-            } else {
-                searchMusic();
-            }
-        });
+        searchInput.addEventListener('input', searchMusic);
 
         function displayRecentlyPlayed() {
             const container = document.getElementById('recentlyPlayed');
             container.innerHTML = '';
             
-            console.log('Displaying recently played, songs:', filteredPlaylist.length);
-            
-            const displaySongs = filteredPlaylist.slice(0, 4);
+            const displaySongs = filteredPlaylist.slice(0, 3);
             
             if (displaySongs.length === 0) {
-                container.innerHTML = '<div class="no-results" style="grid-column: 1/-1;"><h3>No songs found</h3><p>Try a different search or singer</p></div>';
+                container.innerHTML = '<div class="no-results"><h3>No songs found</h3><p>Try a different search or singer</p></div>';
                 return;
             }
             
-            displaySongs.forEach((song, index) => {
+            displaySongs.forEach((song) => {
                 const card = document.createElement('div');
                 card.className = 'music-card';
-                card.onclick = () => playSong(filteredPlaylist.indexOf(song));
+                const songIndex = filteredPlaylist.indexOf(song);
+                card.onclick = () => playSong(songIndex);
+                
+                card.addEventListener('mousemove', (e) => {
+                    const rect = card.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) * 100;
+                    const y = ((e.clientY - rect.top) / rect.height) * 100;
+                    card.style.setProperty('--mouse-x', x + '%');
+                    card.style.setProperty('--mouse-y', y + '%');
+                });
+                
                 card.innerHTML = `
                     <img src="${song.img}" alt="${song.name}" onerror="this.src='https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=400&fit=crop'">
                     <div class="music-info">
                         <h3>${song.name}</h3>
                         <p>${song.description || (song.singer ? song.singer + ' cover' : 'Musical track')}</p>
                     </div>
-                    <div class="song-duration">5:10</div>
-                    <div class="song-menu">
-                        <svg viewBox="0 0 24 24" fill="#fff">
-                            <path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
-                        </svg>
-                    </div>
-                `;
-                container.appendChild(item);
-            });
-        }
-
-        function updateTrendingSongs() {
-            const trendingElement = document.getElementById('trendingSongs');
-            const songNames = allPlaylist.map(s => s.name).slice(0, 3).join(', ');
-            trendingElement.textContent = songNames + (allPlaylist.length > 3 ? ', ...' : '');
-        }
-
-        function playSong(index) {
-            if (filteredPlaylist.length === 0) return;
-            
-            currentSongIndex = index;
-            const song = filteredPlaylist[index];
-            
-            console.log('Playing song:', song);
-            
-            audio.src = song.file;
-            audio.play().catch(err => {
-                console.error('Error playing audio:', err);
-                alert('Error playing song. Please check if the audio file exists: ' + song.file);
-            });
-            
-            document.getElementById('currentSongImg').src = song.img;
-            document.getElementById('currentSongName').textContent = song.name;
-            document.getElementById('currentSongArtist').textContent = song.description || (song.singer || 'Unknown Artist');
-            document.getElementById('audioPlayer').classList.add('active');
-            playPauseBtn.textContent = '⏸️';
-        }
-
-        function playRandomSong() {
-            if (filteredPlaylist.length > 0) {
-                const randomIndex = Math.floor(Math.random() * filteredPlaylist.length);
-                playSong(randomIndex);
-            }
-        }
-
-        function togglePlay() {
-            if (audio.paused) {
-                audio.play();
-                playPauseBtn.textContent = '⏸️';
-            } else {
-                audio.pause();
-                playPauseBtn.textContent = '▶️';
-            }
-        }
-
-        function nextSong() {
-            currentSongIndex = (currentSongIndex + 1) % filteredPlaylist.length;
-            playSong(currentSongIndex);
-        }
-
-        function previousSong() {
-            currentSongIndex = (currentSongIndex - 1 + filteredPlaylist.length) % filteredPlaylist.length;
-            playSong(currentSongIndex);
-        }
-
-        function seek(event) {
-            const progressBar = event.currentTarget;
-            const clickPosition = event.offsetX;
-            const barWidth = progressBar.offsetWidth;
-            const seekTime = (clickPosition / barWidth) * audio.duration;
-            audio.currentTime = seekTime;
-        }
-
-        function scrollToWeekly() {
-            document.getElementById('weeklySection').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Update progress bar
-        audio.addEventListener('timeupdate', () => {
-            if (audio.duration) {
-                const progressPercent = (audio.currentTime / audio.duration) * 100;
-                progress.style.width = progressPercent + '%';
-                
-                const currentMin = Math.floor(audio.currentTime / 60);
-                const currentSec = Math.floor(audio.currentTime % 60);
-                const durationMin = Math.floor(audio.duration / 60);
-                const durationSec = Math.floor(audio.duration % 60);
-                
-                document.getElementById('duration').textContent = 
-                    `${currentMin}:${currentSec.toString().padStart(2, '0')} / ${durationMin}:${durationSec.toString().padStart(2, '0')}`;
-            }
-        });
-
-        // Auto next song
-        audio.addEventListener('ended', () => {
-            nextSong();
-        });
-
-        // Navigation icons
-        document.getElementById('homeIcon').addEventListener('click', () => {
-            document.querySelectorAll('.nav-icon').forEach(icon => icon.classList.remove('active'));
-            document.getElementById('homeIcon').classList.add('active');
-            document.getElementById('singerPopup').classList.remove('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        document.getElementById('contactIcon').addEventListener('click', () => {
-            const popup = document.getElementById('singerPopup');
-            popup.classList.toggle('active');
-        });
-
-        document.getElementById('micIcon').addEventListener('click', () => {
-            alert('Microphone feature coming soon!');
-        });
-
-        // Singer selection
-        document.querySelectorAll('.singer-item').forEach(item => {
-            item.addEventListener('click', () => {
-                const singer = item.getAttribute('data-singer');
-                filterBySinger(singer);
-            });
-        });
-
-        // Click outside to close popup
-        document.addEventListener('click', (e) => {
-            const popup = document.getElementById('singerPopup');
-            const contactIcon = document.getElementById('contactIcon');
-            if (!popup.contains(e.target) && !contactIcon.contains(e.target)) {
-                popup.classList.remove('active');
-            }
-        });
-
-        // Load playlist on page load
-        loadPlaylist();
-    </script>
-</body>
-</html> (song.singer ? song.singer + ' cover' : 'Musical track')}</p>
-                    </div>
                 `;
                 container.appendChild(card);
             });
         }
 
-        function displayWeeklyTop() {
-            const container = document.getElementById('weeklyTop');
+        function displayPlaylist() {
+            const container = document.getElementById('playlistContainer');
             container.innerHTML = '';
-            
-            console.log('Displaying weekly top, songs:', filteredPlaylist.length);
             
             if (filteredPlaylist.length === 0) {
                 container.innerHTML = '<div class="no-results"><h3>No songs found</h3><p>Try a different search or singer</p></div>';
@@ -1070,13 +925,9 @@
             
             filteredPlaylist.forEach((song, index) => {
                 const item = document.createElement('div');
-                item.className = 'top-song-item';
+                item.className = 'song-item';
                 item.onclick = () => playSong(index);
-                item.innerHTML = `
-                    <div class="song-rank">${String(index + 1).padStart(2, '0')}</div>
-                    <div class="song-thumbnail">
-                        <img src="${song.img}" alt="${song.name}" onerror="this.src='https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=100&h=100&fit=crop'">
-                    </div>
-                    <div class="song-details">
-                        <h4>${song.name}</h4>
-                        <p>${song.description ||
+                
+                item.addEventListener('mousemove', (e) => {
+                    const rect = item.getBoundingClientRect();
+                    const x = ((e.clientX - rect.left) / rect.width) *
