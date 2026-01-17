@@ -3,80 +3,24 @@
     "id": "1",
     "name": "Dream Your Moments",
     "singer": "anaz",
-    "file": "songs/kadhaipoma.mp3",
-    "img": "img/1.jpg",
+    "file": "kadhaipoma.mp3",
+    "img": "1.jpg",
     "description": "Anaz soulful cover"
   },
   {
     "id": "2",
     "name": "Until I Met You",
     "singer": "riya",
-    "file": "songs/2.mp3",
-    "img": "img/2.jpg",
+    "file": "2.mp3",
+    "img": "2.jpg",
     "description": "Riya romantic ballad"
   },
   {
     "id": "3",
     "name": "Gimme Some Courage",
     "singer": "ragesh",
-    "file": "songs/3.mp3",
-    "img": "img/3.jpg",
+    "file": "3.mp3",
+    "img": "3.jpg",
     "description": "Ragesh uplifting anthem"
-  },
-  {
-    "id": "4",
-    "name": "Dark Alley",
-    "singer": "anaz",
-    "file": "songs/4.mp3",
-    "img": "img/4.jpg",
-    "description": "Anaz mysterious vibes"
-  },
-  {
-    "id": "5",
-    "name": "One More Of A Stranger",
-    "singer": "riya",
-    "file": "songs/5.mp3",
-    "img": "img/5.jpg",
-    "description": "Riya emotional performance"
-  },
-  {
-    "id": "6",
-    "name": "Endless Things",
-    "singer": "ragesh",
-    "file": "songs/6.mp3",
-    "img": "img/6.jpg",
-    "description": "Ragesh melodic journey"
-  },
-  {
-    "id": "7",
-    "name": "The Heartbeat Stops",
-    "singer": "anaz",
-    "file": "songs/7.mp3",
-    "img": "img/7.jpg",
-    "description": "Anaz powerful vocals"
-  },
-  {
-    "id": "8",
-    "name": "Walking Promises",
-    "singer": "riya",
-    "file": "songs/8.mp3",
-    "img": "img/8.jpg",
-    "description": "Riya soft acoustic"
-  },
-  {
-    "id": "9",
-    "name": "Desired Games",
-    "singer": "ragesh",
-    "file": "songs/9.mp3",
-    "img": "img/9.jpg",
-    "description": "Ragesh energetic beats"
-  },
-  {
-    "id": "10",
-    "name": "Evening Vibe",
-    "singer": "anaz",
-    "file": "songs/10.mp3",
-    "img": "img/10.jpg",
-    "description": "Anaz chill evening track"
   }
 ]
