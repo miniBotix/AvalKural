@@ -1,0 +1,14 @@
+[
+  {
+    "id": "001",
+    "name": "First Melody",
+    "file": "songs/song1.mp3",
+    "description": "Riya sang this during office cultural day. Soft melody vibe."
+  },
+  {
+    "id": "002",
+    "name": "Evening Raagam",
+    "file": "songs/song2.mp3",
+    "description": "One take recording – her favorite song."
+  }
+]
