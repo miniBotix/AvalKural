@@ -6,21 +6,5 @@
     "file": "kadhaipoma.mp3",
     "img": "1.jpg",
     "description": "Anaz soulful cover"
-  },
-  {
-    "id": "2",
-    "name": "Until I Met You",
-    "singer": "riya",
-    "file": "2.mp3",
-    "img": "2.jpg",
-    "description": "Riya romantic ballad"
-  },
-  {
-    "id": "3",
-    "name": "Gimme Some Courage",
-    "singer": "ragesh",
-    "file": "3.mp3",
-    "img": "3.jpg",
-    "description": "Ragesh uplifting anthem"
   }
 ]
