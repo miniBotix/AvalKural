@@ -1,0 +1,8 @@
+AvalKural/
+│── index.html
+│── playlist.json
+│── songs/
+│     ├── song1.mp3
+│     ├── song2.mp3
+│── cover/
+│     └── bg.jpg
