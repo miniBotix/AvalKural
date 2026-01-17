@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>AvalKural</title>
+
+<style>
+/* =========================================================
+   AVALKURAL - MODERN MUSIC APP UI
+   Blue + Lavender + Violet Theme
+   ========================================================= */
+
+/* ---------------- ROOT VARIABLES ---------------- */
+
+:root{
+ --bg:#0a0e17;
+ --panel:#111827;
+ --card:#161d2f;
+
+ --blue:#4aa9ff;
+ --lav:#b084ff;
+ --vio:#7c5cff;
+ --pink:#ff8ad8;
+
+ --text:#e6eaff;
+ --dim:#8b93b5;
+
+ --glow1:rgba(120,150,255,.4);
+ --glow2:rgba(180,120,255,.4);
+}
+
+/* ---------------- BASE ---------------- */
+
+*{
+ box-sizing:border-box;
+}
+
+body{
+ margin:0;
+ background:var(--bg);
+ color:var(--text);
+ font-family:Segoe UI,system-ui;
+}
+
+/* ---------------- LAYOUT ---------------- */
+
+.app{
+ display:flex;
+ height:100vh;
+}
+
+/* ----- LEFT PANEL ----- */
+
+.left{
+ width:32%;
+ background:var(--panel);
+ border-right:1px solid #1e2740;
+ display:flex;
+ flex-direction:column;
+}
+
+/* ----- RIGHT PANEL ----- */
+
+.right{
+ flex:1;
+ position:relative;
+}
+
+/* ---------------- HEADER ---------------- */
+
+.logo{
+ padding:16px;
+ font-size:24px;
+ font-weight:700;
+ letter-spacing:1px;
+
+ background:linear-gradient(90deg,
+ var(--blue),var(--lav),var(--pink));
+
+ -webkit-background-clip:text;
+ color:transparent;
+}
+
+/* ---------------- PLAYLIST LIST ---------------- */
+
+.list{
+ flex:1;
+ overflow:auto;
+ padding:10px;
+}
+
+.item{
+ padding:12px;
+ margin-bottom:8px;
+ border-radius:12px;
+ background:var(--card);
+ transition:.25s;
+ border:1px solid #1f2842;
+}
+
+/* hover glow */
+.item:hover{
+ box-shadow:0 0 14px var(--glow1);
+ transform:translateX(4px);
+}
+
+/* active */
+.item:active{
+ box-shadow:0 0 18px var(--glow2);
+}
+
+/* song name */
+.name{
+ font-size:15px;
+}
+
+/* ---------------- RIGHT VIEW ---------------- */
+
+.view{
+ padding:20px;
+}
+
+/* big title */
+.big{
+ font-size:28px;
+ margin-bottom:10px;
+
+ background:linear-gradient(90deg,
+ var(--lav),var(--blue));
+
+ -webkit-background-clip:text;
+ color:transparent;
+}
+
+/* ---------------- PLAYER CARD ---------------- */
+
+.player{
+ background:linear-gradient(150deg,
+ #131a2e,#0e1322);
+
+ border:1px solid #1e2740;
+ border-radius:18px;
+ padding:16px;
+
+ animation:fade .6s;
+}
+
+/* ---------------- CONTROLS ---------------- */
+
+.bar{
+ width:100%;
+}
+
+.ctrl{
+ display:flex;
+ gap:14px;
+ justify-content:center;
+ margin-top:8px;
+}
+
+.btn{
+ background:#0d1220;
+ border:1px solid #1e2740;
+ color:white;
+ padding:8px 12px;
+ border-radius:10px;
+}
+
+/* glow button */
+.btn:active{
+ box-shadow:0 0 14px var(--lav);
+}
+
+/* download */
+.down{
+ color:var(--blue);
+ text-decoration:none;
+}
+
+/* ---------------- DESCRIPTION POPUP ---------------- */
+
+.pop{
+ display:none;
+
+ position:absolute;
+ top:18%;
+ left:10%;
+ width:80%;
+
+ background:#0f1423;
+ border:1px solid #222d48;
+ border-radius:16px;
+ padding:16px;
+
+ animation:zoom .3s;
+
+ box-shadow:
+ 0 0 30px rgba(120,120,255,.3);
+}
+
+/* ---------------- ANIMATIONS ---------------- */
+
+@keyframes fade{
+ from{opacity:0}
+ to{opacity:1}
+}
+
+@keyframes zoom{
+ from{transform:scale(.9)}
+ to{transform:scale(1)}
+}
+
+/* ---------------- SCROLL ---------------- */
+
+::-webkit-scrollbar{
+ width:6px;
+}
+
+::-webkit-scrollbar-thumb{
+ background:#1e2740;
+ border-radius:10px;
+}
+
+/* ---------------- MOBILE ---------------- */
+
+@media(max-width:800px){
+
+ .app{flex-direction:column;}
+
+ .left{width:100%;height:40%;}
+ .right{height:60%;}
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- ============= LEFT PANEL ============= -->
+
+<div class="left">
+
+ <div class="logo">AVAL KURAL</div>
+
+ <div id="list" class="list">
+   <!-- playlist here -->
+ </div>
+
+</div>
+
+<!-- ============= RIGHT PANEL ============= -->
+
+<div class="right">
+
+<div class="view">
+
+ <div class="big" id="title">
+   Select a Song
+ </div>
+
+ <!-- PLAYER CARD -->
+
+ <div class="player">
+
+  <input id="bar" class="bar" type="range" value="0">
+
+  <div class="ctrl">
+   <button class="btn" onclick="prev()">⏮</button>
+
+   <button class="btn" onclick="pp()">▶/⏸</button>
+
+   <button class="btn" onclick="next()">⏭</button>
+
+   <a id="down" class="down" download>⬇ Download</a>
+  </div>
+
+  <div id="time">0:00 / 0:00</div>
+
+ </div>
+
+</div>
+
+<!-- description popup -->
+<div id="pop" class="pop"></div>
+
+</div>
+
+</div>
+
+<audio id="audio"></audio>
+
+<script>
+/* ======================================================
+   AVALKURAL LOGIC
+   ======================================================*/
+
+let songs=[];
+let cur=0;
+
+let A=id("audio");
+
+/* -------- load json -------- */
+
+fetch("playlist.json")
+.then(r=>r.json())
+.then(d=>{
+ songs=d;
+ render();
+});
+
+/* -------- helpers -------- */
+
+function id(x){return document.getElementById(x);}
+
+/* -------- render playlist -------- */
+
+function render(){
+
+ let L=id("list");
+ L.innerHTML="";
+
+ songs.forEach((s,i)=>{
+
+  let d=document.createElement("div");
+  d.className="item";
+
+  d.innerHTML=
+   `<div class='name'>${s.name}</div>`;
+
+  // click play
+  d.onclick=()=>open(i);
+
+  // long press for description
+  let t;
+  d.onmousedown=()=>
+    t=setTimeout(()=>show(s.description),700);
+
+  d.onmouseup=()=>clearTimeout(t);
+
+  L.appendChild(d);
+
+ });
+}
+
+/* -------- open song -------- */
+
+function open(i){
+
+ cur=i;
+
+ A.src=songs[i].file;
+
+ id("title").innerHTML=songs[i].name;
+
+ id("down").href=songs[i].file;
+
+ A.play();
+}
+
+/* -------- play pause -------- */
+
+function pp(){
+ A.paused?A.play():A.pause();
+}
+
+/* -------- next prev -------- */
+
+function next(){
+ open((cur+1)%songs.length);
+}
+
+function prev(){
+ open((cur-1+songs.length)%songs.length);
+}
+
+/* -------- progress -------- */
+
+A.ontimeupdate=()=>{
+
+ id("bar").value=
+ (A.currentTime/A.duration)*100;
+
+ id("time").innerHTML=
+  sec(A.currentTime)+
+  " / "+
+  sec(A.duration);
+};
+
+id("bar").oninput=()=>{
+ A.currentTime=
+ (id("bar").value/100)*A.duration;
+};
+
+/* -------- seconds format -------- */
+
+function sec(s){
+ s=parseInt(s||0);
+ return Math.floor(s/60)+":"+
+ (s%60).toString().padStart(2,"0");
+}
+
+/* -------- popup -------- */
+
+function show(t){
+
+ id("pop").style.display="block";
+
+ id("pop").innerHTML=
+ `<b>About</b><br><br>${t}
+  <br><br><small>tap outside</small>`;
+}
+
+/* close popup */
+
+onclick=e=>{
+ if(e.target.id!="pop")
+  id("pop").style.display="none";
+};
+
+</script>
+
+</body>
+</html>
