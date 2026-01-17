@@ -2,234 +2,190 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <title>AvalKural</title>
 
 <style>
-/* =========================================================
-   AVALKURAL - MODERN MUSIC APP UI
-   Blue + Lavender + Violet Theme
-   ========================================================= */
-
-/* ---------------- ROOT VARIABLES ---------------- */
+/* =====================================================
+   MODERN AVALKURAL WEB UI
+   BLUE NEON + LAVENDER THEME
+   ===================================================== */
 
 :root{
- --bg:#0a0e17;
- --panel:#111827;
- --card:#161d2f;
+ --bg:#050814;
+ --card:#0c1222;
+ --panel:#080d1b;
 
- --blue:#4aa9ff;
- --lav:#b084ff;
- --vio:#7c5cff;
- --pink:#ff8ad8;
+ --blue:#3ea6ff;
+ --vio:#8c6bff;
+ --lav:#c7a8ff;
 
- --text:#e6eaff;
- --dim:#8b93b5;
-
- --glow1:rgba(120,150,255,.4);
- --glow2:rgba(180,120,255,.4);
-}
-
-/* ---------------- BASE ---------------- */
-
-*{
- box-sizing:border-box;
+ --text:#e7ecff;
+ --dim:#8a90aa;
 }
 
 body{
  margin:0;
  background:var(--bg);
  color:var(--text);
- font-family:Segoe UI,system-ui;
+ font-family:Segoe UI;
 }
 
-/* ---------------- LAYOUT ---------------- */
+/* ---------- HERO TOP ---------- */
 
-.app{
+.top{
  display:flex;
- height:100vh;
+ gap:20px;
+ padding:20px;
+ align-items:center;
 }
 
-/* ----- LEFT PANEL ----- */
+/* author pic */
 
-.left{
- width:32%;
- background:var(--panel);
- border-right:1px solid #1e2740;
- display:flex;
- flex-direction:column;
+.author{
+ width:110px;
+ height:110px;
+ border-radius:50%;
+ border:3px solid var(--blue);
+ box-shadow:0 0 20px var(--blue);
 }
 
-/* ----- RIGHT PANEL ----- */
+.brand{
+ font-size:38px;
+ font-weight:bold;
 
-.right{
- flex:1;
- position:relative;
-}
-
-/* ---------------- HEADER ---------------- */
-
-.logo{
- padding:16px;
- font-size:24px;
- font-weight:700;
- letter-spacing:1px;
-
- background:linear-gradient(90deg,
- var(--blue),var(--lav),var(--pink));
+ background:
+ linear-gradient(90deg,
+ var(--blue),var(--lav));
 
  -webkit-background-clip:text;
  color:transparent;
 }
 
-/* ---------------- PLAYLIST LIST ---------------- */
+/* ---------- GRID PLAYLIST ---------- */
 
-.list{
- flex:1;
- overflow:auto;
- padding:10px;
-}
+.grid{
+ display:grid;
+ grid-template-columns:
+ repeat(auto-fill,minmax(200px,1fr));
 
-.item{
- padding:12px;
- margin-bottom:8px;
- border-radius:12px;
- background:var(--card);
- transition:.25s;
- border:1px solid #1f2842;
-}
-
-/* hover glow */
-.item:hover{
- box-shadow:0 0 14px var(--glow1);
- transform:translateX(4px);
-}
-
-/* active */
-.item:active{
- box-shadow:0 0 18px var(--glow2);
-}
-
-/* song name */
-.name{
- font-size:15px;
-}
-
-/* ---------------- RIGHT VIEW ---------------- */
-
-.view{
+ gap:16px;
  padding:20px;
 }
 
-/* big title */
-.big{
- font-size:28px;
- margin-bottom:10px;
-
- background:linear-gradient(90deg,
- var(--lav),var(--blue));
-
- -webkit-background-clip:text;
- color:transparent;
-}
-
-/* ---------------- PLAYER CARD ---------------- */
-
-.player{
- background:linear-gradient(150deg,
- #131a2e,#0e1322);
-
- border:1px solid #1e2740;
+.card{
+ background:var(--card);
  border-radius:18px;
- padding:16px;
-
- animation:fade .6s;
+ border:1px solid #131c34;
+ transition:.25s;
 }
 
-/* ---------------- CONTROLS ---------------- */
+/* neon hover */
+.card:hover{
+ box-shadow:0 0 22px var(--vio);
+ transform:translateY(-4px);
+}
+
+.cover{
+ width:100%;
+ height:150px;
+ object-fit:cover;
+ border-radius:18px 18px 0 0;
+}
+
+.info{
+ padding:10px;
+}
+
+.title{
+ font-size:15px;
+}
+
+/* ---------- PLAYER BAR ---------- */
 
 .bar{
+ position:fixed;
+ bottom:0;
  width:100%;
+ background:var(--panel);
+ border-top:1px solid #131c34;
 }
 
-.ctrl{
+.inner{
+ max-width:1100px;
+ margin:auto;
+ padding:10px;
+
  display:flex;
- gap:14px;
- justify-content:center;
- margin-top:8px;
+ gap:20px;
+ align-items:center;
 }
 
-.btn{
- background:#0d1220;
- border:1px solid #1e2740;
+.nowimg{
+ width:56px;
+ height:56px;
+ border-radius:10px;
+}
+
+.ctrl button{
+ background:#0b1121;
+ border:1px solid #1b2543;
  color:white;
  padding:8px 12px;
  border-radius:10px;
 }
 
 /* glow button */
-.btn:active{
- box-shadow:0 0 14px var(--lav);
+.ctrl button:active{
+ box-shadow:0 0 14px var(--blue);
 }
 
-/* download */
-.down{
- color:var(--blue);
- text-decoration:none;
+/* progress */
+
+#prog{
+ flex:1;
 }
 
-/* ---------------- DESCRIPTION POPUP ---------------- */
+/* ---------- DESCRIPTION ---------- */
 
 .pop{
  display:none;
 
- position:absolute;
- top:18%;
- left:10%;
- width:80%;
+ position:fixed;
+ top:20%;
+ left:20%;
+ width:60%;
 
- background:#0f1423;
- border:1px solid #222d48;
- border-radius:16px;
- padding:16px;
+ background:#090f20;
+ border:1px solid #1b2543;
+ border-radius:18px;
+ padding:20px;
 
- animation:zoom .3s;
-
- box-shadow:
- 0 0 30px rgba(120,120,255,.3);
+ box-shadow:0 0 30px var(--vio);
 }
 
-/* ---------------- ANIMATIONS ---------------- */
+/* ---------- BG NEON ---------- */
 
-@keyframes fade{
- from{opacity:0}
- to{opacity:1}
+body:before{
+ content:"";
+ position:fixed;
+ inset:0;
+
+ background:
+ radial-gradient(
+ circle at top,
+ rgba(60,120,255,.18),
+ transparent 60%);
+
+ pointer-events:none;
 }
 
-@keyframes zoom{
- from{transform:scale(.9)}
- to{transform:scale(1)}
-}
+/* ---------- MOBILE ---------- */
 
-/* ---------------- SCROLL ---------------- */
+@media(max-width:700px){
 
-::-webkit-scrollbar{
- width:6px;
-}
+ .top{flex-direction:column;}
 
-::-webkit-scrollbar-thumb{
- background:#1e2740;
- border-radius:10px;
-}
-
-/* ---------------- MOBILE ---------------- */
-
-@media(max-width:800px){
-
- .app{flex-direction:column;}
-
- .left{width:100%;height:40%;}
- .right{height:60%;}
+ .pop{width:90%;left:5%;}
 }
 
 </style>
@@ -237,44 +193,42 @@ body{
 
 <body>
 
-<div class="app">
+<!-- ========== HERO ========== -->
 
-<!-- ============= LEFT PANEL ============= -->
+<div class="top">
 
-<div class="left">
+ <img src="author.jpg" class="author">
 
- <div class="logo">AVAL KURAL</div>
-
- <div id="list" class="list">
-   <!-- playlist here -->
+ <div>
+  <div class="brand">AVAL KURAL</div>
+  <div style="color:var(--dim)">
+   A tribute to Riya’s voice
+  </div>
  </div>
 
 </div>
 
-<!-- ============= RIGHT PANEL ============= -->
+<!-- ========== PLAYLIST GRID ========== -->
 
-<div class="right">
+<div id="grid" class="grid"></div>
 
-<div class="view">
+<!-- ========== PLAYER BAR ========== -->
 
- <div class="big" id="title">
-   Select a Song
- </div>
+<div class="bar">
 
- <!-- PLAYER CARD -->
+ <div class="inner">
 
- <div class="player">
+  <img id="nowimg" class="nowimg">
 
-  <input id="bar" class="bar" type="range" value="0">
+  <div id="now">Select Song</div>
+
+  <input id="prog" type="range" value="0">
 
   <div class="ctrl">
-   <button class="btn" onclick="prev()">⏮</button>
-
-   <button class="btn" onclick="pp()">▶/⏸</button>
-
-   <button class="btn" onclick="next()">⏭</button>
-
-   <a id="down" class="down" download>⬇ Download</a>
+   <button onclick="prev()">⏮</button>
+   <button onclick="pp()">▶/⏸</button>
+   <button onclick="next()">⏭</button>
+   <a id="down" download>⬇</a>
   </div>
 
   <div id="time">0:00 / 0:00</div>
@@ -283,26 +237,21 @@ body{
 
 </div>
 
-<!-- description popup -->
+<!-- description -->
 <div id="pop" class="pop"></div>
-
-</div>
-
-</div>
 
 <audio id="audio"></audio>
 
 <script>
-/* ======================================================
+/* =====================================================
    AVALKURAL LOGIC
-   ======================================================*/
+   ===================================================== */
 
 let songs=[];
 let cur=0;
-
 let A=id("audio");
 
-/* -------- load json -------- */
+/* ---- load playlist ---- */
 
 fetch("playlist.json")
 .then(r=>r.json())
@@ -311,41 +260,40 @@ fetch("playlist.json")
  render();
 });
 
-/* -------- helpers -------- */
-
 function id(x){return document.getElementById(x);}
 
-/* -------- render playlist -------- */
+/* ---- render cards ---- */
 
 function render(){
 
- let L=id("list");
- L.innerHTML="";
+ let g=id("grid");
+ g.innerHTML="";
 
  songs.forEach((s,i)=>{
 
-  let d=document.createElement("div");
-  d.className="item";
+  let c=document.createElement("div");
+  c.className="card";
 
-  d.innerHTML=
-   `<div class='name'>${s.name}</div>`;
+  c.innerHTML=`
+   <img src="${s.img}" class="cover">
+   <div class="info">
+    <div class="title">${s.name}</div>
+   </div>`;
 
-  // click play
-  d.onclick=()=>open(i);
+  c.onclick=()=>open(i);
 
-  // long press for description
+  // long press description
   let t;
-  d.onmousedown=()=>
-    t=setTimeout(()=>show(s.description),700);
+  c.onmousedown=()=>
+    t=setTimeout(()=>show(s),700);
 
-  d.onmouseup=()=>clearTimeout(t);
+  c.onmouseup=()=>clearTimeout(t);
 
-  L.appendChild(d);
-
+  g.appendChild(c);
  });
 }
 
-/* -------- open song -------- */
+/* ---- open song ---- */
 
 function open(i){
 
@@ -353,20 +301,20 @@ function open(i){
 
  A.src=songs[i].file;
 
- id("title").innerHTML=songs[i].name;
+ id("now").innerHTML=songs[i].name;
+
+ id("nowimg").src=songs[i].img;
 
  id("down").href=songs[i].file;
 
  A.play();
 }
 
-/* -------- play pause -------- */
+/* ---- play pause ---- */
 
 function pp(){
  A.paused?A.play():A.pause();
 }
-
-/* -------- next prev -------- */
 
 function next(){
  open((cur+1)%songs.length);
@@ -376,11 +324,11 @@ function prev(){
  open((cur-1+songs.length)%songs.length);
 }
 
-/* -------- progress -------- */
+/* ---- progress ---- */
 
 A.ontimeupdate=()=>{
 
- id("bar").value=
+ id("prog").value=
  (A.currentTime/A.duration)*100;
 
  id("time").innerHTML=
@@ -389,12 +337,10 @@ A.ontimeupdate=()=>{
   sec(A.duration);
 };
 
-id("bar").oninput=()=>{
+id("prog").oninput=()=>{
  A.currentTime=
- (id("bar").value/100)*A.duration;
+ (id("prog").value/100)*A.duration;
 };
-
-/* -------- seconds format -------- */
 
 function sec(s){
  s=parseInt(s||0);
@@ -402,18 +348,24 @@ function sec(s){
  (s%60).toString().padStart(2,"0");
 }
 
-/* -------- popup -------- */
+/* ---- description ---- */
 
-function show(t){
+function show(s){
 
  id("pop").style.display="block";
 
- id("pop").innerHTML=
- `<b>About</b><br><br>${t}
-  <br><br><small>tap outside</small>`;
-}
+ id("pop").innerHTML=`
 
-/* close popup */
+ <h3>${s.name}</h3>
+
+ <img src="${s.img}"
+ style="width:120px;border-radius:10px">
+
+ <p>${s.description}</p>
+
+ <small>tap outside to close</small>
+ `;
+}
 
 onclick=e=>{
  if(e.target.id!="pop")
