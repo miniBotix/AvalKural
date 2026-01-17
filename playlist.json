@@ -1,28 +1,17 @@
 [
-  {
-    "id": "1",
-    "name": "Dream Your Moments",
-    "singer": "riya",
-    "file": "kadhaipoma.mp3",
-    "img": "1.jpg",
-    "description": "Riya soulful cover"
-  },
-
-  {
-    "id": "2",
-    "name": "Until I Met You",
-    "singer": "riya",
-    "file": "songs/2.mp3",
-    "img": "2.jpg",
-    "description": "Romantic melody"
-  },
-
-  {
-    "id": "3",
-    "name": "Gimme Some Courage",
-    "singer": "riya",
-    "file": "songs/3.mp3",
-    "img": "3.jpg",
-    "description": "Motivational cover"
-  }
+ {
+   "id":"001",
+   "name":"Riya Melody",
+   "file":"songs/kadhaipoma.mp3",
+   "image":"songs/1.jpg",
+   "description":"Her magical voice first cover"
+ },
+ {
+   "id":"002",
+   "name":"Aval Dream",
+   "file":"songs/2.mp3",
+   "image":"songs/2.jpg",
+   "description":"Soft romantic vibe"
+ }
 ]
+
