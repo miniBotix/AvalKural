@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AvalKural - Stories</title>
+    <title>Angel & Bunny - AvalKural</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * {
@@ -100,45 +100,6 @@
             margin-bottom: 30px;
         }
 
-        .search-container {
-            display: flex;
-            align-items: center;
-            flex: 1;
-        }
-
-        .search-box {
-            display: flex;
-            align-items: center;
-            background: #fff;
-            border-radius: 25px;
-            overflow: hidden;
-            margin-right: 20px;
-            max-width: 400px;
-        }
-
-        .search-box input {
-            border: none;
-            outline: none;
-            padding: 10px 20px;
-            width: 300px;
-            font-family: 'Poppins', sans-serif;
-        }
-
-        .search-box button {
-            background: #00d4ff;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .search-box button:hover {
-            background: #0099ff;
-        }
-
         .hero-section {
             display: flex;
             align-items: center;
@@ -197,81 +158,40 @@
             color: #aaa;
             line-height: 1.6;
             margin-bottom: 30px;
+            font-size: 14px;
         }
 
-        .section-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .section-header h2 {
-            font-size: 24px;
-            font-weight: 600;
-            color: #00d4ff;
-        }
-
-        .stories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-            margin-bottom: 50px;
-        }
-
-        .story-card {
+        .story-container {
             background: #16213e;
-            border-radius: 15px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            position: relative;
-            height: 100%;
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 50px;
+            border: 1px solid rgba(0, 212, 255, 0.2);
         }
 
-        .story-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
-        }
-
-        .story-image {
-            width: 100%;
-            height: 250px;
-            object-fit: cover;
-        }
-
-        .story-info {
-            padding: 20px;
-        }
-
-        .story-info h3 {
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: #fff;
-        }
-
-        .story-info p {
-            font-size: 13px;
-            color: #aaa;
-            line-height: 1.5;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .story-date {
-            font-size: 12px;
+        .story-container h2 {
             color: #00d4ff;
-            margin-top: 10px;
+            font-size: 32px;
+            margin-bottom: 30px;
+            text-align: center;
         }
 
-        .no-results {
-            text-align: center;
-            padding: 60px 20px;
-            color: #666;
-            grid-column: 1 / -1;
+        .story-content {
+            color: #ddd;
+            line-height: 2;
+            font-size: 15px;
+            letter-spacing: 0.5px;
+        }
+
+        .story-paragraph {
+            margin-bottom: 25px;
+            text-align: justify;
+        }
+
+        .story-highlight {
+            color: #00d4ff;
+            font-weight: 600;
+            font-style: italic;
         }
 
         .powered-by {
@@ -318,22 +238,12 @@
                 font-size: 32px;
             }
 
-            .stories-grid {
-                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            .story-container {
+                padding: 20px;
             }
 
-            .header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-
-            .search-box {
-                max-width: 100%;
-            }
-
-            .search-box input {
-                width: 200px;
+            .story-content {
+                font-size: 14px;
             }
 
             .powered-by {
@@ -358,37 +268,61 @@
         </div>
 
         <div class="main-content">
-            <div class="header">
-                <div class="search-container">
-                    <div class="search-box">
-                        <input type="text" id="searchInput" placeholder="Search Stories...">
-                        <button onclick="searchStories()">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="#fff">
-                                <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
             <div class="hero-section">
                 <div class="hero-image">
-                    <img src="Herlook.jpg" alt="Featured Story" onerror="this.src='https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=500&fit=crop'">
+                    <img src="Herlook.jpg" alt="Angel & Bunny" onerror="this.src='https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&h=500&fit=crop'">
                 </div>
                 <div class="hero-content">
-                    <h1>Her<br><span>Amazing Stories!</span></h1>
+                    <h1>Angel &<br><span>Bunny</span></h1>
                     <p class="hero-description">
-                        Discover the incredible journey and beautiful moments from her life. Every story is a piece of art, filled with emotions, dreams, and unforgettable memories that will touch your heart.
+                        A tale of pain, friendship, and magical dreams. When darkness surrounds a soul, sometimes all you need is a little furry friend to show you that magic still exists.
                     </p>
                 </div>
             </div>
 
-            <div class="section-header">
-                <h2>Her Stories</h2>
-            </div>
-            <div class="stories-grid" id="storiesContainer">
-                <div class="no-results">
-                    <h3>Loading stories...</h3>
+            <div class="story-container">
+                <h2>The Angel & The Bunny</h2>
+                
+                <div class="story-content">
+                    <div class="story-paragraph">
+                        She was born as the first child, carrying hopes and dreams of her entire family. But childhood wasn't as magical as fairy tales promised. While her parents worked hard to provide, wealth was scarce, and love was shown through absence. In her teenage years, everything changed. The little support she had crumbled, leaving only the sting of harsh words and even harsher hands.
+                    </div>
+
+                    <div class="story-paragraph">
+                        <span class="story-highlight">"She lost all hope."</span> Her parents, burdened by their own struggles, couldn't see the pain in her eyes. Every achievement was dismissed with a shout. Every smile was beaten down with cruelty. She searched for love among friends, but found only betrayal. People she trusted tried to exploit her kindness. Abuse came in different forms, and with each wound, her heart grew colder.
+                    </div>
+
+                    <div class="story-paragraph">
+                        Days melted into nights of tears. She cried alone, wondering if happiness was something meant for other people. The world had taught her that trust leads to pain, that hope is just another word for disappointment. She locked herself away, convinced that solitude was safer than love.
+                    </div>
+
+                    <div class="story-paragraph">
+                        Then one day, in the quiet corner of her office, she found something unexpected—a small black bunny, abandoned and afraid, much like herself. Something inside her recognized a kindred spirit. She brought the bunny home, and for the first time in years, she had a friend who didn't judge, didn't hurt, and didn't leave.
+                    </div>
+
+                    <div class="story-paragraph">
+                        The bunny became her anchor. She shared her pain, her secrets, her broken dreams—and the bunny listened with gentle eyes. In those moments of connection, something magical happened. <span class="story-highlight">The bunny took her to a world that existed beyond reality.</span>
+                    </div>
+
+                    <div class="story-paragraph">
+                        In this enchanted realm, she was a princess. The people around her were pure-hearted, honest, and kind. They never betrayed, never hurt, never lied. When she wished for something, it appeared before her eyes. She rode on magical unicorns through fields of eternal spring. Children played and laughed without fear. The bunny, now her guardian, protected her in this dreamland, showing her what the world could be if it was made of love instead of pain.
+                    </div>
+
+                    <div class="story-paragraph">
+                        <span class="story-highlight">"This was healing."</span> Every night, when despair became too heavy in the real world, the bunny would take her away. They danced in castles made of starlight. They swam in crystal waters that washed away sorrows. They walked through gardens where flowers sang songs of hope. The bunny showed her that even in a fractured world, magic still exists—sometimes it just needs to be found in the most unexpected place.
+                    </div>
+
+                    <div class="story-paragraph">
+                        Over time, something shifted. The woman began to understand that she didn't need to escape her real life forever. The magical world was real in its own way—it lived inside her heart, in her imagination, in her newfound ability to dream again. The bunny wasn't taking her away from life; it was teaching her how to live with hope, with wonder, with the belief that better days were possible.
+                    </div>
+
+                    <div class="story-paragraph">
+                        Now, whenever she feels lost, the bunny is there. Not always taking her to distant magical worlds, but reminding her that the magic she found there was never about escaping reality—it was about remembering that <span class="story-highlight">she deserves happiness, love, and a life filled with kindness.</span> The bunny, her black-furred angel, taught her the most important magic of all: the power to believe in herself.
+                    </div>
+
+                    <div class="story-paragraph">
+                        This is her story. This is a story of pain transforming into hope. This is the tale of how a lonely girl and a small bunny found magic in each other, and how that magic became the light that saved them both.
+                    </div>
                 </div>
             </div>
         </div>
@@ -399,72 +333,6 @@
     </div>
 
     <script>
-        let allStories = [];
-        let filteredStories = [];
-        const searchInput = document.getElementById('searchInput');
-
-        // Initialize on page load
-        window.addEventListener('load', loadStories);
-
-        async function loadStories() {
-            try {
-                const response = await fetch('./storylist.json?v=' + new Date().getTime());
-                if (!response.ok) {
-                    console.error('Response status:', response.status);
-                    throw new Error('Failed to load stories');
-                }
-                const data = await response.json();
-                console.log('Stories loaded:', data);
-                allStories = data;
-                filteredStories = [...allStories];
-                displayStories();
-            } catch (error) {
-                console.error('Error loading storylist.json:', error);
-                alert('Error: Could not load storylist.json. Make sure it exists in the same folder as story.html');
-            }
-        }
-
-        function displayStories() {
-            const container = document.getElementById('storiesContainer');
-            container.innerHTML = '';
-
-            if (filteredStories.length === 0) {
-                container.innerHTML = '<div class="no-results"><h3>No stories found</h3></div>';
-                return;
-            }
-
-            filteredStories.forEach((story) => {
-                const card = document.createElement('div');
-                card.className = 'story-card';
-                card.innerHTML = `
-                    <img src="${story.image}" alt="${story.title}" class="story-image" onerror="this.src='https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400&h=300&fit=crop'">
-                    <div class="story-info">
-                        <h3>${story.title}</h3>
-                        <p>${story.content}</p>
-                        <div class="story-date">${story.date || 'Recent'}</div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function searchStories() {
-            const searchTerm = searchInput.value.toLowerCase().trim();
-
-            if (searchTerm === '') {
-                filteredStories = [...allStories];
-            } else {
-                filteredStories = allStories.filter(story =>
-                    story.title.toLowerCase().includes(searchTerm) ||
-                    (story.content && story.content.toLowerCase().includes(searchTerm)) ||
-                    (story.category && story.category.toLowerCase().includes(searchTerm))
-                );
-            }
-            displayStories();
-        }
-
-        searchInput.addEventListener('input', searchStories);
-
         function goToHome() {
             window.location.href = './index.html';
         }
