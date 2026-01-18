@@ -1,0 +1,50 @@
+[
+  {
+    "id": "001",
+    "title": "My First Performance",
+    "image": "she_1.jpg",
+    "content": "The day I stepped on stage for the first time was magical. My heart was pounding, my hands were trembling, but the moment I started singing, everything felt right. The audience's love and support gave me the courage to continue pursuing my dreams.",
+    "date": "January 2024",
+    "category": "Music"
+  },
+  {
+    "id": "002",
+    "title": "Journey to Dreams",
+    "image": "she_1.jpg",
+    "content": "Every artist has a journey filled with challenges and victories. Mine started from a small stage to larger platforms. I've learned that consistency and passion are the keys to success. Thank you to everyone who believed in me when I didn't believe in myself.",
+    "date": "December 2023",
+    "category": "Personal"
+  },
+  {
+    "id": "003",
+    "title": "Voice of the Angel",
+    "image": "she_1.jpg",
+    "content": "People call my voice angelic, but I see it as a gift that connects souls. Through music, I can express emotions that words alone cannot convey. Every song tells a story, and every performance is a prayer to touch hearts worldwide.",
+    "date": "November 2023",
+    "category": "Music"
+  },
+  {
+    "id": "004",
+    "title": "Behind the Scenes",
+    "image": "she_1.jpg",
+    "content": "What you see on stage is just the tip of the iceberg. Behind every perfect performance are countless hours of practice, sacrifice, and dedication. But it's all worth it when I see the smile on someone's face after hearing my music.",
+    "date": "October 2023",
+    "category": "Personal"
+  },
+  {
+    "id": "005",
+    "title": "Love for Music",
+    "image": "she_1.jpg",
+    "content": "Music is my life, my therapy, my everything. It's the language that transcends all boundaries. When I'm feeling lost or broken, singing brings me back home. I hope my music does the same for everyone who listens to it.",
+    "date": "September 2023",
+    "category": "Music"
+  },
+  {
+    "id": "006",
+    "title": "A Special Message",
+    "image": "she_1.jpg",
+    "content": "To all my supporters and fans, you are the reason I keep going. Your love, messages, and support mean the world to me. This journey wouldn't be possible without you. Let's create more beautiful memories together through music.",
+    "date": "August 2023",
+    "category": "Personal"
+  }
+]
